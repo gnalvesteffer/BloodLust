@@ -1,3 +1,6 @@
+[7-1-2017] v2.474:
+Improved texture preloading.
+
 [7-1-2017] v2.473:
 Fixed object error in main menu.
 
