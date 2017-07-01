@@ -1,0 +1,13 @@
+class StageTI
+{
+	texture = "a3\characters_f\blufor\data\equip1_ti_ca.paa";
+};
+ambient[] = {0.15,0.15,0.15,1};
+diffuse[] = {0.4,0.4,0.4,1};
+forcedDiffuse[] = {0,0,0,0};
+emmisive[] = {0,0,0,0};
+specular[]={0.0,0.0,0.0,0};
+specularPower = 0;
+PixelShaderID = "Normal";
+VertexShaderID = "Basic";
+renderFlags[] = {};
