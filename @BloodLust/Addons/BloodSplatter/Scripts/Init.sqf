@@ -22,7 +22,10 @@ call compile preprocessFileLineNumbers "BloodSplatter\Scripts\Effects\Refraction
 call compile preprocessFileLineNumbers "BloodSplatter\Dialogs\BloodLust_SettingsManager.sqf";
 
 //Preload textures.
-execVM "BloodSplatter\Scripts\Preload.sqf";
+if(BloodLust_IsTexturePreloadingEnabled) then
+{
+    execVM "BloodSplatter\Scripts\Preload.sqf";
+};
 
 //BloodLust Clean-up.
 execVM "BloodSplatter\Scripts\Cleanup.sqf";

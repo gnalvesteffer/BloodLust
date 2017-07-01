@@ -1,5 +1,6 @@
 [7-1-2017] v2.474:
 Improved texture preloading.
+Fixed bug where blood splatters didn't spawn when a unit was hit by an explosion.
 
 [7-1-2017] v2.473:
 Fixed object error in main menu.

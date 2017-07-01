@@ -158,13 +158,10 @@ BloodLust_OnUnitExplosion =
 
     if(BloodLust_IsVaporizationEnabled && _damage >= BloodLust_VaporizationDamageThreshold) exitWith
     {
-        [_unit, _damage * 0.1] call BloodLust_VaporizeUnit;
-        _unit removeEventHandler ["HitPart", _unit getVariable ["BloodLust_HitPartEventHandlerIndex", -1]];
-        _unit removeEventHandler ["Hit", _unit getVariable ["BloodLust_HitEventHandlerIndex", -1]];
-        _unit removeEventHandler ["Explosion", _unit getVariable ["BloodLust_ExplosionEventHandlerIndex", -1]];
+        [_unit, _damage * BloodLust_ExplosionGibForceMultiplier] call BloodLust_VaporizeUnit;
     };
 
-    if(alive _unit && _damage >= BloodLust_ExplosionDamageThreshold) then
+    if(_damage >= BloodLust_ExplosionDamageThreshold) then
     {
         _splatterCount = _damage * BloodLust_ExplosionBloodSplatterIterationMultiplier;
         for [{_i = 0}, {_i < _splatterCount}, {_i = _i + 1}] do
@@ -185,6 +182,7 @@ BloodLust_OnUnitExplosion =
                 selectRandom BloodLust_VaporizationBloodSplatters
             ] call BloodLust_CreateBloodSplatter;
         };
+        [_unit, BloodLust_GibBleedDuration, 0.01] call BloodLust_AttachBleeding;
     };
 };
 
@@ -522,6 +520,9 @@ BloodLust_VaporizeUnit =
     if(_unit getVariable ["BloodLust_IsVaporized", false]) exitWith {};
 
     _unit setVariable ["BloodLust_IsVaporized", true];
+    _unit removeEventHandler ["HitPart", _unit getVariable ["BloodLust_HitPartEventHandlerIndex", -1]];
+    _unit removeEventHandler ["Hit", _unit getVariable ["BloodLust_HitEventHandlerIndex", -1]];
+    _unit removeEventHandler ["Explosion", _unit getVariable ["BloodLust_ExplosionEventHandlerIndex", -1]];
     _unit setDamage 1;
     _unit call BloodLust_GoreMistEffect;
     hideObject _unit;
@@ -815,7 +816,8 @@ BloodLust_MakeUnitBleed =
                 else
                 {
                     _hasBloodPool = _target getVariable ["BloodLust_HasBloodPool", false];
-                    if(!alive _target && !_hasBloodPool) then
+                    _unitSpeed = _target call BloodLust_GetVelocityMagnitude;
+                    if(!_hasBloodPool && !alive _target && _unitSpeed < 1) then
                     {
                         _target setVariable ["BloodLust_HasBloodPool", true];
                         _bloodPool = call BloodLust_CreateBloodPoolObject;

@@ -3,6 +3,7 @@
 
 BloodLust_IsBloodLustEnabled = profileNamespace getVariable ["BloodLust_IsBloodLustEnabled", true];
 BloodLust_IsMultiplayerCoreEnabledInSingleplayer = profileNamespace getVariable ["BloodLust_IsMultiplayerCoreEnabledInSingleplayer", false];
+BloodLust_IsTexturePreloadingEnabled = profileNamespace getVariable ["BloodLust_IsMultiplayerCoreEnabledInSingleplayer", false];
 BloodLust_MaxArterialBloodSprays = profileNamespace getVariable ["BloodLust_MaxArterialBloodSprays", 5];
 BloodLust_MaxBloodSprays = profileNamespace getVariable ["BloodLust_MaxBloodSprays", 5];
 BloodLust_MaxBloodSplatters                    = profileNamespace getVariable ["BloodLust_MaxBloodSplatters", 1500];
@@ -19,7 +20,7 @@ BloodLust_BloodSplatterIterationCaliberMultiplier = profileNamespace getVariable
 BloodLust_BloodSplatterIterations              = profileNamespace getVariable ["BloodLust_BloodSplatterIterations", 10];
 BloodLust_VaporizedBloodSplatterIterations     = profileNamespace getVariable ["BloodLust_VaporizedBloodSplatterIterations", 50];
 BloodLust_VaporizedBloodSplatterJitterAmount   = profileNamespace getVariable ["BloodLust_VaporizedBloodSplatterJitterAmount", 10];
-BloodLust_VaporizationDamageThreshold          = profileNamespace getVariable ["BloodLust_VaporizationDamageThreshold", 0.6];
+BloodLust_VaporizationDamageThreshold          = profileNamespace getVariable ["BloodLust_VaporizationDamageThreshold", 1];
 BloodLust_IsVaporizationEnabled                = profileNamespace getVariable ["BloodLust_IsVaporizationEnabled", true];
 BloodLust_IsVaporizationEnabledOnPlayer        = profileNamespace getVariable ["BloodLust_IsVaporizationEnabledOnPlayer", true];
 BloodLust_BloodSplatterGroundMaxDistance       = profileNamespace getVariable ["BloodLust_BloodSplatterGroundMaxDistance", 1.5];
@@ -29,7 +30,8 @@ BloodLust_BloodSplatterAngleJitterAmount = profileNamespace getVariable ["BloodL
 BloodLust_BloodLustActivationDistance          = profileNamespace getVariable ["BloodLust_BloodLustActivationDistance", 2000];
 BloodLust_IsBleedingEnabled                    = profileNamespace getVariable ["BloodLust_IsBleedingEnabled", true];
 BloodLust_ExplosionDamageThreshold = profileNamespace getVariable ["BloodLust_ExplosionDamageThreshold", 0.2];
-BloodLust_ExplosionBloodSplatterIterationMultiplier =  profileNamespace getVariable ["BloodLust_ExplosionBloodSplatterIterationMultiplier", 30];
+BloodLust_ExplosionBloodSplatterIterationMultiplier =  profileNamespace getVariable ["BloodLust_ExplosionBloodSplatterIterationMultiplier", 10];
+BloodLust_ExplosionGibForceMultiplier =  profileNamespace getVariable ["BloodLust_ExplosionGibForceMultiplier", 0.1];
 BloodLust_BleedDuration                        = profileNamespace getVariable ["BloodLust_BleedDuration", 5];
 BloodLust_BleedFrequency                       = profileNamespace getVariable ["BloodLust_BleedFrequency", 0.05];
 BloodLust_BleedFrequencyVariance               = profileNamespace getVariable ["BloodLust_BleedFrequencyVariance", 2];
