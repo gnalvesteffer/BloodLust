@@ -12,7 +12,7 @@ class CfgPatches
         projectName = "BloodLust";
         author = "Gavin N. Alvesteffer";
         url = "http://steamcommunity.com/sharedfiles/filedetails/?id=667953829";
-        version = 2.472;
+        version = 2.473;
       };
     };
 
@@ -56,9 +56,9 @@ class CfgPatches
 
     class CfgCoreData
     {
-    	slopBlood="";
-    	footStepBleeding0="";
-    	footStepBleeding1="";
+    	slopBlood="BloodSplatter\Models\Plane\BloodSplatter_Plane.p3d";
+    	footStepBleeding0="BloodSplatter\Models\Plane\BloodSplatter_Plane.p3d";
+    	footStepBleeding1="BloodSplatter\Models\Plane\BloodSplatter_Plane.p3d";
     };
 
     class CfgVehicles

@@ -1,3 +1,6 @@
+[7-1-2017] v2.473:
+Fixed object error in main menu.
+
 [6-29-2017] v2.472:
 Removed game's default blood splatters to retain consistency when using BloodLust.
 Reduced vaporization gib force.
