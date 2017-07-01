@@ -1,7 +1,8 @@
-//Blood Lust -- Blood splatter mod.
-//Copyright (C) 2016  Gavin N. Alvesteffer
+Blood Lust -- Blood splatter mod.
+Copyright (C) 2017  Gavin N. Alvesteffer
 
-Blood Lust adds blood splatter from gunshots.
-When a unit is hit ingame, blood will splatter on to the ground near them.
+"The most badass mod you've ever used."
+Adds various elements of gore to ArmA3 such as blood splatters, blood sprays, blood pooling, bleeding, gibbing, and other misc details.
+For Multiplayer: Servers and clients must run the addon.
 
 REQUIRES: COMMUNITY BASE ADDONS
