@@ -182,7 +182,6 @@ BloodLust_OnUnitExplosion =
                 selectRandom BloodLust_VaporizationBloodSplatters
             ] call BloodLust_CreateBloodSplatter;
         };
-        [_unit, BloodLust_GibBleedDuration, 0.01] call BloodLust_AttachBleeding;
     };
 };
 
