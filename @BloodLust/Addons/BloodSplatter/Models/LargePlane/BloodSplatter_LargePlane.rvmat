@@ -4,6 +4,7 @@ forcedDiffuse[] = {0.15,0,0,0};
 emmisive[] = {0,0,0,0};
 specular[] = {0,0,0,0};
 specularPower = 0;
+fogMode = "Fog";
 PixelShaderID = "Normal";
 VertexShaderID = "Basic";
 renderFlags[] = {"NoZWrite"};
