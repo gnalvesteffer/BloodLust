@@ -89,6 +89,18 @@ class CfgPatches
                       hiddenSelections[] = { "BloodSplatter_Plane" };
                     };
 
+                    class BloodSplatter_SmallPlane : NonStrategic
+                    {
+                      scope = 1;
+                      author = "Gavin N. Alvesteffer";
+                      destrType = "DestructNo";
+                      model = "\BloodSplatter\Models\SmallPlane\BloodSplatter_SmallPlane.p3d";
+                      displayName = "Blood Splatter";
+                      faction = "Default";
+                      vehicleClass = "Misc";
+                      hiddenSelections[] = { "BloodSplatter_Plane" };
+                    };
+
                     class BloodSplatter_MediumPlane : NonStrategic
                     {
                       scope = 1;
