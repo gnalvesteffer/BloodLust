@@ -1,6 +1,6 @@
-ambient[] = {0.2,0.00,0.00,0.98};
-diffuse[] = {0.2,0.00,0.00,0.98};
-forcedDiffuse[] = {0,0,0,0};
+ambient[] = {0,0,0,0.98};
+diffuse[] = {0,0,0,0.98};
+forcedDiffuse[] = {0.15,0,0,0};
 emmisive[] = {0,0,0,0};
 specular[] = {0,0,0,0};
 specularPower = 0;
