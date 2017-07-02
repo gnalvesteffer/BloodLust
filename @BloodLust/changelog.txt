@@ -1,8 +1,11 @@
-[7-1-2017] v2.48:
+[7-2-2017] v2.48:
 Improved texture preloading (enable via setting "BloodLust_IsTexturePreloadingEnabled" to "true" in the BloodLust Settings Menu).
 Fixed bug where blood splatters didn't spawn when a unit was hit by an explosion.
-Added config for explosion gib force.
-Adjusted blood rvmat.
+Added config entry for explosion gib force.
+Adjusted blood material to fix bright blood splatters.
+Updated blood textures to look more realistic.
+Reduced blood droplet size for bleeding.
+Reduced blood smear size.
 
 [7-1-2017] v2.473:
 Fixed object error in main menu.
