@@ -1003,7 +1003,7 @@ BloodLust_CreateBleedSplatterObject =
     {
         call BloodLust_RemoveOldBleedSplatter;
     };
-    _splatter = "BloodSplatter_Plane" createVehicleLocal [0, 0, 0];
+    _splatter = "BloodSplatter_SmallPlane" createVehicleLocal [0, 0, 0];
     BloodLust_BleedSplatters pushBack _splatter;
     _splatter;
 };
