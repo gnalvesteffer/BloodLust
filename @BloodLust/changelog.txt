@@ -1,3 +1,6 @@
+[7-8-2017] v2.481:
+Increased blood brightness.
+
 [7-2-2017] v2.48:
 Improved texture preloading (enable via setting "BloodLust_IsTexturePreloadingEnabled" to "true" in the BloodLust Settings Menu).
 Fixed bug where blood splatters didn't spawn when a unit was hit by an explosion.
