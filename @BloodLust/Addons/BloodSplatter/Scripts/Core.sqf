@@ -992,7 +992,7 @@ BloodLust_CreateBloodSmearObject =
     {
         call BloodLust_RemoveOldBleedSplatter;
     };
-    _smear = "BloodSplatter_Plane" createVehicleLocal [0, 0, 0];
+    _smear = "BloodSplatter_SmallPlane" createVehicleLocal [0, 0, 0];
     BloodLust_BleedSplatters pushBack _smear;
     _smear;
 };
