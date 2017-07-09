@@ -12,7 +12,7 @@ class CfgPatches
         projectName = "BloodLust";
         author = "Gavin N. Alvesteffer";
         url = "http://steamcommunity.com/sharedfiles/filedetails/?id=667953829";
-        version = 2.482;
+        version = 2.483;
       };
     };
 

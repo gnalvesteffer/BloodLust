@@ -1,3 +1,6 @@
+[7-9-2017] v2.483:
+Fixed bug where blood was black in cloudy weather.
+
 [7-9-2017] v2.482:
 Tweaked default configuration.
 Added blood spray jitter config.
