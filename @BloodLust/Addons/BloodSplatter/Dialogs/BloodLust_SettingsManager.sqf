@@ -97,7 +97,8 @@ BloodLust_SettingsManager_Properties =
     ["BloodLust_BloodPoolFramerate", "number", "Frames per second for blood pool animations."],
     ["BloodLust_BloodPoolTextures", "parse", "Blood pool texture sets."],
     ["BloodLust_IsTexturePreloadingEnabled", "bool", "Toggles the preloading of textures. May reduce flickering of animated textures, but will result in a possible blood splatter anomaly at the start of the mission."],
-    ["BloodLust_ExplosionGibForceMultiplier", "number", "Controls how much an explosive force affects vaporization gib speeds."]    
+    ["BloodLust_ExplosionGibForceMultiplier", "number", "Controls how much an explosive force affects vaporization gib speeds."],
+    ["BloodLust_BloodSprayJitterAmount", "number", "The angle spread of blood sprays from gun shot wounds."]
 ];
 
 BloodLust_SettingsManager_OnLoad =

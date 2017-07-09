@@ -238,9 +238,9 @@ BloodLust_OnUnitHitPart =
         {
             _sprayJitter =
             [
-                BloodLust_BloodSplatterJitterAmount - (random (BloodLust_BloodSplatterJitterAmount * 2)),
-                BloodLust_BloodSplatterJitterAmount - (random (BloodLust_BloodSplatterJitterAmount * 2)),
-                BloodLust_BloodSplatterJitterAmount - (random (BloodLust_BloodSplatterJitterAmount * 2))
+                BloodLust_BloodSprayJitterAmount - (random (BloodLust_BloodSprayJitterAmount * 2)),
+                BloodLust_BloodSprayJitterAmount - (random (BloodLust_BloodSprayJitterAmount * 2)),
+                BloodLust_BloodSprayJitterAmount - (random (BloodLust_BloodSprayJitterAmount * 2))
             ];
             [_hitPosition, (vectorDir _bullet) vectorAdd (_sprayJitter vectorMultiply 1), (vectorUp _bullet) vectorAdd (_sprayJitter vectorMultiply 1)] call BloodLust_CreateBloodSpray;
         };
