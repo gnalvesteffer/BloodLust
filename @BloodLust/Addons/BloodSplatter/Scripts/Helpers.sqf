@@ -400,7 +400,7 @@ BloodLust_GetSplatterTextureSetIndexFromDamage =
         }
         else
         {
-            if(_damage < 1) then
+            if(_damage <= 1) then
             {
                 _textureSetIndex = 0;
             };
