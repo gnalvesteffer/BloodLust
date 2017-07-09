@@ -1,5 +1,6 @@
 [7-9-2017] v2.482:
 Tweaked default configuration.
+Added blood spray jitter config.
 
 [7-8-2017] v2.481:
 Increased blood brightness.
