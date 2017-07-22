@@ -1,3 +1,6 @@
+[7-22-2017] v2.49:
+Refactored createVehicleLocal usage to createSimpleObject.
+
 [7-9-2017] v2.484:
 Reduced blood pool flickering.
 
