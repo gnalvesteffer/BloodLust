@@ -348,7 +348,7 @@ BloodLust_CreateBloodPoolObject =
     else
     {
         _pool = createSimpleObject ["BloodSplatter_MediumPlane", [0, 0, 0]];
-    }
+    };
 
     BloodLust_BloodSplatters pushBack _pool;
     [selectRandom BloodLust_BloodPoolTextures, BloodLust_BloodPoolFramerate, false, false, _pool, {}] call BloodLust_AnimateObjectTexture;
@@ -868,7 +868,7 @@ BloodLust_CreateArterialBloodSpray =
     else
     {
         _spray = createSimpleObject ["BloodSplatter_SmallSprayPlane", [0, 0, 0]];
-    }
+    };
 
     BloodLust_ArterialBloodSprays pushBack _spray;
     _spray setPosASL _positionASL;
@@ -898,7 +898,7 @@ BloodLust_CreateBloodSpray =
     else
     {
         _spray = createSimpleObject ["BloodSplatter_SprayPlane", [0, 0, 0]];
-    }
+    };
 
     BloodLust_BloodSprays pushBack _spray;
     _spray setPosASL _positionASL;
@@ -1011,7 +1011,7 @@ BloodLust_CreateBloodSplatterObject =
     else
     {
         _splatter = createSimpleObject ["BloodSplatter_Plane", [0, 0, 0]];
-    }
+    };
 
     BloodLust_BloodSplatters pushBack _splatter;
     _splatter;
@@ -1032,7 +1032,7 @@ BloodLust_CreateLargeBloodSplatterObject =
     else
     {
         _splatter = createSimpleObject ["BloodSplatter_LargePlane", [0, 0, 0]];
-    }
+    };
 
     BloodLust_BloodSplatters pushBack _splatter;
     _splatter;
@@ -1053,7 +1053,7 @@ BloodLust_CreateBloodSmearObject =
     else
     {
         _smear = createSimpleObject ["BloodSplatter_SmallPlane", [0, 0, 0]];
-    }
+    };
 
     BloodLust_BleedSplatters pushBack _smear;
     _smear;
@@ -1074,7 +1074,7 @@ BloodLust_CreateBleedSplatterObject =
     else
     {
         _splatter = createSimpleObject ["BloodSplatter_SmallPlane", [0, 0, 0]];
-    }
+    };
 
     BloodLust_BleedSplatters pushBack _splatter;
     _splatter;
