@@ -339,7 +339,17 @@ BloodLust_CreateBloodPoolObject =
     {
         call BloodLust_RemoveOldBloodSplatter;
     };
-    _pool = createSimpleObject ["BloodSplatter_MediumPlane", [0, 0, 0]];
+
+    _pool = objNull;
+    if(isMultiplayer) then
+    {
+        _pool = "BloodSplatter_MediumPlane" createVehicleLocal [0, 0, 0];
+    }
+    else
+    {
+        _pool = createSimpleObject ["BloodSplatter_MediumPlane", [0, 0, 0]];
+    }
+
     BloodLust_BloodSplatters pushBack _pool;
     [selectRandom BloodLust_BloodPoolTextures, BloodLust_BloodPoolFramerate, false, false, _pool, {}] call BloodLust_AnimateObjectTexture;
     _pool;
@@ -385,6 +395,8 @@ BloodLust_CreateGib =
     {
         [_gib] call _x;
     } foreach BloodLust_OnGibCreatedEventHandlers;
+
+    _gib;
 };
 
 BloodLust_ReduceBounciness =
@@ -847,7 +859,17 @@ BloodLust_CreateArterialBloodSpray =
     _vectorDir = _this select 1;
     _vectorUp = _this select 2;
     if(call BloodLust_IsMaxArterialBloodSpraysReached) exitWith {};
-    _spray = createSimpleObject ["BloodSplatter_SmallSprayPlane", [0, 0, 0]];
+
+    _spray = objNull;
+    if(isMultiplayer) then
+    {
+        _spray = "BloodSplatter_SmallSprayPlane" createVehicleLocal [0, 0, 0];
+    }
+    else
+    {
+        _spray = createSimpleObject ["BloodSplatter_SmallSprayPlane", [0, 0, 0]];
+    }
+
     BloodLust_ArterialBloodSprays pushBack _spray;
     _spray setPosASL _positionASL;
     _spray setVectorDirAndUp [_vectorDir, _vectorUp];
@@ -867,7 +889,17 @@ BloodLust_CreateBloodSpray =
     _vectorUp = _this select 2;
     if(isNil "_positionASL" || isNil "_vectorDir" || isNil "_vectorUp") exitWith {};
     if(call BloodLust_IsMaxBloodSpraysReached) exitWith {};
-    _spray = createSimpleObject ["BloodSplatter_SprayPlane", [0, 0, 0]];
+
+    _spray = objNull;
+    if(isMultiplayer) then
+    {
+        _spray = "BloodSplatter_SprayPlane" createVehicleLocal [0, 0, 0];
+    }
+    else
+    {
+        _spray = createSimpleObject ["BloodSplatter_SprayPlane", [0, 0, 0]];
+    }
+
     BloodLust_BloodSprays pushBack _spray;
     _spray setPosASL _positionASL;
     _spray setVectorDirAndUp [_vectorDir, _vectorUp];
@@ -970,7 +1002,17 @@ BloodLust_CreateBloodSplatterObject =
     {
         call BloodLust_RemoveOldBloodSplatter;
     };
-    _splatter = createSimpleObject ["BloodSplatter_Plane", [0, 0, 0]];
+
+    _splatter = objNull;
+    if(isMultiplayer) then
+    {
+        _splatter = "BloodSplatter_Plane" createVehicleLocal [0, 0, 0];
+    }
+    else
+    {
+        _splatter = createSimpleObject ["BloodSplatter_Plane", [0, 0, 0]];
+    }
+
     BloodLust_BloodSplatters pushBack _splatter;
     _splatter;
 };
@@ -981,7 +1023,17 @@ BloodLust_CreateLargeBloodSplatterObject =
     {
         call BloodLust_RemoveOldBloodSplatter;
     };
-    _splatter = createSimpleObject ["BloodSplatter_LargePlane", [0, 0, 0]];
+
+    _splatter = objNull;
+    if(isMultiplayer) then
+    {
+        _splatter = "BloodSplatter_LargePlane" createVehicleLocal [0, 0, 0];
+    }
+    else
+    {
+        _splatter = createSimpleObject ["BloodSplatter_LargePlane", [0, 0, 0]];
+    }
+
     BloodLust_BloodSplatters pushBack _splatter;
     _splatter;
 };
@@ -992,7 +1044,17 @@ BloodLust_CreateBloodSmearObject =
     {
         call BloodLust_RemoveOldBleedSplatter;
     };
-    _smear = createSimpleObject ["BloodSplatter_SmallPlane", [0, 0, 0]];
+
+    _smear = objNull;
+    if(isMultiplayer) then
+    {
+        _smear = "BloodSplatter_SmallPlane" createVehicleLocal [0, 0, 0];
+    }
+    else
+    {
+        _smear = createSimpleObject ["BloodSplatter_SmallPlane", [0, 0, 0]];
+    }
+
     BloodLust_BleedSplatters pushBack _smear;
     _smear;
 };
@@ -1003,7 +1065,17 @@ BloodLust_CreateBleedSplatterObject =
     {
         call BloodLust_RemoveOldBleedSplatter;
     };
-    _splatter = createSimpleObject ["BloodSplatter_SmallPlane", [0, 0, 0]];
+
+    _splatter = objNull;
+    if(isMultiplayer) then
+    {
+        _splatter = "BloodSplatter_SmallPlane" createVehicleLocal [0, 0, 0];
+    }
+    else
+    {
+        _splatter = createSimpleObject ["BloodSplatter_SmallPlane", [0, 0, 0]];
+    }
+
     BloodLust_BleedSplatters pushBack _splatter;
     _splatter;
 };

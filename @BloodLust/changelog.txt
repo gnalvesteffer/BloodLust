@@ -1,5 +1,7 @@
 [7-22-2017] v2.49:
-Refactored createVehicleLocal usage to createSimpleObject.
+Refactored createVehicleLocal usage to createSimpleObject when in singleplayer.
+Reduced blood pool size.
+Increased blood brightness.
 
 [7-9-2017] v2.484:
 Reduced blood pool flickering.
