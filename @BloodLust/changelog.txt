@@ -2,6 +2,7 @@
 Refactored createVehicleLocal usage to createSimpleObject when in singleplayer.
 Reduced blood pool size.
 Increased blood brightness.
+Improved surface detection for blood splatter placement, allowing blood to splatter on more surfaces.
 
 [7-9-2017] v2.484:
 Reduced blood pool flickering.

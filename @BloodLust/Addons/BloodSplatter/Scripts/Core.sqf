@@ -242,7 +242,7 @@ BloodLust_OnUnitHitPart =
                 BloodLust_BloodSprayJitterAmount - (random (BloodLust_BloodSprayJitterAmount * 2)),
                 BloodLust_BloodSprayJitterAmount - (random (BloodLust_BloodSprayJitterAmount * 2))
             ];
-            [_hitPosition, (vectorDir _bullet) vectorAdd (_sprayJitter vectorMultiply 1), (vectorUp _bullet) vectorAdd (_sprayJitter vectorMultiply 1)] call BloodLust_CreateBloodSpray;
+            [_hitPosition, (vectorDir _bullet) vectorAdd _sprayJitter, (vectorUp _bullet) vectorAdd _sprayJitter] call BloodLust_CreateBloodSpray;
         };
     };
 
@@ -713,8 +713,8 @@ BloodLust_MakeUnitBleed =
             vehicle _target,
             true,
             10,
-            "GEOM",
-            "FIRE"
+            "VIEW",
+            "NONE"
         ] select {
             _intersectingObject  = _x select 2;
             _isObjectInIntersectionBlackList = [typeOf _intersectingObject, (getModelInfo _intersectingObject) select 0] call BloodLust_IsClassInIntersectionBlackList;
@@ -750,8 +750,8 @@ BloodLust_MakeUnitBleed =
                 vehicle _target,
                 true,
                 10,
-                "GEOM",
-                "FIRE"
+                "VIEW",
+                "NONE"
             ] select {
                 _intersectingObject  = _x select 2;
                 _isObjectInIntersectionBlackList = [typeOf _intersectingObject, (getModelInfo _intersectingObject) select 0] call BloodLust_IsClassInIntersectionBlackList;
@@ -817,10 +817,13 @@ BloodLust_MakeUnitBleed =
 
                     if(BloodLust_IsArterialBloodSprayEnabled && time <= _arterialBloodSprayEndTime && random 1 <= BloodLust_ArterialBloodSprayProbability) then
                     {
+                        _arterialBloodSprayPosition = _hitPointPosition;
+                        _arterialBloodSprayDirection = vectorNormalized (((_bulletVectorDir vectorAdd _jitter)) vectorCrossProduct (vectorDir _target));
+                        _arterialBloodSprayUp = vectorNormalized (((_bulletVectorUp vectorAdd _jitter)) vectorCrossProduct (vectorUp _target));
                         [
-                            _hitPointPosition,
-                            vectorNormalized (((_bulletVectorDir vectorAdd _jitter)) vectorCrossProduct (vectorDir _target)),
-                            vectorNormalized (((_bulletVectorUp vectorAdd _jitter)) vectorCrossProduct (vectorUp _target))
+                            _arterialBloodSprayPosition,
+                            _arterialBloodSprayDirection,
+                            _arterialBloodSprayUp
                         ] call BloodLust_CreateArterialBloodSpray;
                     };
                 }
@@ -879,6 +882,7 @@ BloodLust_CreateArterialBloodSpray =
     {
         [selectRandom BloodLust_BloodSpraySounds, _spray, false, getPosASL _spray, BloodLust_BloodSpraySoundAudibleVolume, 1.2 - (random 0.4), BloodLust_BloodSpraySoundAudibleDistance * 0.5] call BloodLust_PlaySound;
     };
+
     _spray;
 };
 
@@ -909,7 +913,92 @@ BloodLust_CreateBloodSpray =
     {
         [selectRandom BloodLust_BloodSpraySounds, _spray, false, getPosASL _spray, BloodLust_BloodSpraySoundAudibleVolume, 1.2 - (random 0.4), BloodLust_BloodSpraySoundAudibleDistance] call BloodLust_PlaySound;
     };
+
     _spray;
+};
+
+BloodLust_SprayBlood =
+{
+    _sourcePositionASL = param [0];
+    _directionVector = param [1];
+    _bloodSprayDuration = param [2, 1];
+    _bloodSprayIntervalSeconds = param [3, 0.001];
+    _bloodSprayIntervalVariance = param [4, 0.1];
+    _bloodSprayForce = param [5, 0.1];
+    _beginTime = time;
+    _endTime = time + _bloodSprayDuration;
+
+    while {time < _endTime} do
+    {
+        _elapsedTime = time - _beginTime;
+        _splatterAngle = random 360;
+
+        _surfaceIntersection = [getPosASL _dummyPhysicsObject, objNull, objNull] call BloodLust_GetSurfaceIntersection;
+        _splatterNormal = _surfaceIntersection select 1;
+        _splatterPosition = _surfaceIntersection select 2;
+
+        _splatter = call BloodLust_CreateBleedSplatterObject;
+        _splatter setObjectTexture [0, selectRandom BloodLust_BleedTextures];
+        _splatter setPosASL (_splatterPosition vectorAdd (_splatterNormal vectorMultiply 0.01));
+        _splatter setVectorDirAndUp [[sin _splatterAngle, cos _splatterAngle, sin _splatterAngle * cos _splatterAngle] vectorCrossProduct _splatterNormal, _splatterNormal];
+
+        sleep (random _bloodSprayIntervalSeconds + _bloodSprayIntervalVariance);
+    };
+
+    deleteVehicle _dummyPhysicsObject;
+};
+
+//Returns: [3D position of splatter, 3D surface normal, is the splatter on a surface (true = surface, false = ground), intersecting object]
+BloodLust_GetCalculatedSplatterPlacement =
+{
+    _sourcePositionASL = param [0];
+    _directionVector = param [1];
+    _maxSurfaceIntersectionDistance = param [2];
+    _maxGroundIntersectionDistance = param [3, _maxSurfaceIntersectionDistance];
+
+    _placementPosition = [0, 0, 0];
+    _placementNormal = [0, 0, 0];
+    _placementIsOnSurface = false;
+    _placementObject = objNull;
+
+    _endPosition = _sourcePositionASL vectorAdd (_directionVector vectorMultiply _maxSurfaceIntersectionDistance);
+
+    _surfaceIntersections = lineIntersectsSurfaces
+    [
+        _sourcePositionASL,
+        _endPosition,
+        objNull,
+        objNull,
+        true,
+        10,
+        "VIEW",
+        "NONE"
+    ] select {
+        _intersectingObject  = _x select 2;
+        _isObjectInIntersectionBlackList = [typeOf _intersectingObject, (getModelInfo _intersectingObject) select 0] call BloodLust_IsClassInIntersectionBlackList;
+        _return = !_isObjectInIntersectionBlackList;
+        _return;
+    };
+
+    if(count _surfaceIntersections > 0) then
+    {
+        _surfaceIntersection = _surfaceIntersections select 0;
+        _placementPosition = _surfaceIntersection select 0;
+        _placementNormal = _surfaceIntersection select 1;
+        _placementObject = _surfaceIntersection select 2;
+        _placementIsOnSurface = true;
+    }
+    else
+    {
+        _endPosition = _sourcePositionASL vectorAdd (_directionVector vectorMultiply _maxGroundIntersectionDistance);
+        _surfaceIntersection = [_endPosition, objNull, objNull] call BloodLust_GetSurfaceIntersection;
+        _placementPosition = _surfaceIntersection select 2;
+        _placementNormal = _surfaceIntersection select 1;
+        _placementObject = _surfaceIntersection select 4;
+        _placementIsOnSurface = !(isNull _placementObject);
+    };
+
+    [_placementPosition, _placementNormal, _placementIsOnSurface, _placementObject];
 };
 
 BloodLust_AssignSplatterToBuilding =
@@ -958,8 +1047,8 @@ BloodLust_CreateBloodSplatter =
         vehicle _object,
         true,
         10,
-        "GEOM",
-        "FIRE"
+        "VIEW",
+        "NONE"
     ] select {
         _intersectingObject  = _x select 2;
         _isObjectInIntersectionBlackList = [typeOf _intersectingObject, (getModelInfo _intersectingObject) select 0] call BloodLust_IsClassInIntersectionBlackList;
