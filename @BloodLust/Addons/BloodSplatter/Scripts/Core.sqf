@@ -243,6 +243,7 @@ BloodLust_OnUnitHitPart =
                 BloodLust_BloodSprayJitterAmount - (random (BloodLust_BloodSprayJitterAmount * 2))
             ];
             [_hitPosition, (vectorDir _bullet) vectorAdd _sprayJitter, (vectorUp _bullet) vectorAdd _sprayJitter] call BloodLust_CreateBloodSpray;
+            [_hitPosition, (vectorDir _bullet) vectorAdd _sprayJitter, (vectorMagnitude _velocity) * 0.001, 0.15] call BloodLust_CreateBloodSplash;
         };
     };
 
@@ -917,35 +918,61 @@ BloodLust_CreateBloodSpray =
     _spray;
 };
 
-BloodLust_SprayBlood =
+BloodLust_CreateBloodSplash =
 {
     _sourcePositionASL = param [0];
     _directionVector = param [1];
-    _bloodSprayDuration = param [2, 1];
-    _bloodSprayIntervalSeconds = param [3, 0.001];
-    _bloodSprayIntervalVariance = param [4, 0.1];
-    _bloodSprayForce = param [5, 0.1];
-    _beginTime = time;
-    _endTime = time + _bloodSprayDuration;
+    _bloodSprayForce = param [2, 0.1];
+    _duration = param [3, 0.15];
+    _drag = param [4, 0.995];
 
-    while {time < _endTime} do
-    {
-        _elapsedTime = time - _beginTime;
-        _splatterAngle = random 360;
+    _logic = "Logic" createVehicleLocal [0, 0, 0];
+    _logic setVariable ["_beginTime", time];
+    _logic setVariable ["_endTime", time + _duration];
+    _logic setVariable ["_sourcePositionASL", _sourcePositionASL];
+    _logic setVariable ["_directionVector", _directionVector];
+    _logic setVariable ["_bloodSprayForce", _bloodSprayForce];
+    _logic setVariable ["_lastSplatterPositionASL", _sourcePositionASL];
+    _logic setVariable ["_drag", _drag];
 
-        _surfaceIntersection = [getPosASL _dummyPhysicsObject, objNull, objNull] call BloodLust_GetSurfaceIntersection;
-        _splatterNormal = _surfaceIntersection select 1;
-        _splatterPosition = _surfaceIntersection select 2;
+    _logicHandle = _logic call BIS_fnc_objectVar;
+    missionNamespace setVariable [_logicHandle, _logic];
 
-        _splatter = call BloodLust_CreateBleedSplatterObject;
-        _splatter setObjectTexture [0, selectRandom BloodLust_BleedTextures];
-        _splatter setPosASL (_splatterPosition vectorAdd (_splatterNormal vectorMultiply 0.01));
-        [_splatter, _splatterNormal, _splatterAngle] call BloodLust_RotateObjectAroundNormal;
+    [
+        {
+            _logicHandle = _this select 0;
+            _logic = missionNamespace getVariable _logicHandle;
+            _beginTime = _logic getVariable "_beginTime";
+            _endTime = _logic getVariable "_endTime";
+            _sourcePositionASL = _logic getVariable "_sourcePositionASL";
+            _directionVector = _logic getVariable "_directionVector";
+            _bloodSprayForce = _logic getVariable "_bloodSprayForce";
+            _lastSplatterPositionASL = _logic getVariable "_lastSplatterPositionASL";
+            _drag = _logic getVariable "_drag";
+            _placement = [];
 
-        sleep (random _bloodSprayIntervalSeconds + _bloodSprayIntervalVariance);
-    };
+            if(time >= _endTime) then
+            {
+                [_this select 1] call CBA_fnc_removePerFrameHandler;
+            };
 
-    deleteVehicle _dummyPhysicsObject;
+            _placement = [_lastSplatterPositionASL, _directionVector vectorAdd (wind vectorMultiply 0.01), _bloodSprayForce, _bloodSprayForce] call BloodLust_GetCalculatedSplatterPlacement;
+
+            _placementPositionASL = _placement select 0;
+            _placementNormal = _placement select 1;
+
+            _splatter = call BloodLust_CreateBleedSplatterObject;
+            _splatter setObjectTexture [0, selectRandom BloodLust_BleedTextures];
+            _splatter setPosASL _placementPositionASL;
+            [_splatter, _placementNormal, random 360] call BloodLust_RotateObjectAroundNormal;
+
+            _logic setVariable ["_lastSplatterPositionASL", _placementPositionASL];
+            _logic setVariable ["_bloodSprayForce", _bloodSprayForce * _drag];
+            _logic setVariable ["_directionVector", _directionVector vectorAdd [0, 0, -0.098]];
+        },
+        0.01,
+        _logicHandle
+    ] call CBA_fnc_addPerFrameHandler;
 };
 
 //Returns: [3D position of splatter, 3D surface normal, is the splatter on a surface (true = surface, false = ground), intersecting object]
