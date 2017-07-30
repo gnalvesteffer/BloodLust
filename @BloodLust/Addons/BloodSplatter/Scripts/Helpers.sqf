@@ -1,6 +1,23 @@
 //Blood Lust -- Blood splatter mod.
 //Copyright (C) 2016  Gavin N. Alvesteffer
 
+//Returns: [vectorDir, vectorUp]
+BloodLust_RotateAroundNormal =
+{
+    _normal = param [0];
+    _angle = param [1];
+    [[sin _angle, cos _angle, sin _angle * cos _angle] vectorCrossProduct _normal, _normal];
+};
+
+BloodLust_RotateObjectAroundNormal =
+{
+    _object = param [0];
+    _normal = param [1];
+    _angle = param [2];
+
+    _object setVectorDirAndUp ([_normal, _angle] call BloodLust_RotateAroundNormal);
+};
+
 BloodLust_GetSurfaceIntersection =
 {
     _positionASL = _this select 0;

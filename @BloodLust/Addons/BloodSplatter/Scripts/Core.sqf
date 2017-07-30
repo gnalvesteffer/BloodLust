@@ -948,23 +948,6 @@ BloodLust_SprayBlood =
     deleteVehicle _dummyPhysicsObject;
 };
 
-//Returns: [vectorDir, vectorUp]
-BloodLust_RotateAroundNormal =
-{
-    _normal = param [0];
-    _angle = param [1];
-    [[sin _angle, cos _angle, sin _angle * cos _angle] vectorCrossProduct _normal, _normal];
-};
-
-BloodLust_RotateObjectAroundNormal =
-{
-    _object = param [0];
-    _normal = param [1];
-    _angle = param [2];
-
-    _object setVectorDirAndUp ([_normal, _angle] call BloodLust_RotateAroundNormal);
-};
-
 //Returns: [3D position of splatter, 3D surface normal, is the splatter on a surface (true = surface, false = ground), intersecting object]
 BloodLust_GetCalculatedSplatterPlacement =
 {
