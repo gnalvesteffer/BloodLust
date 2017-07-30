@@ -962,8 +962,8 @@ BloodLust_CreateBloodSplash =
                 [_this select 1] call CBA_fnc_removePerFrameHandler;
             };
 
-            _direction = vectorNormalized ((_directionVector vectorAdd (wind vectorMultiply BloodLust_BloodSplashWindContribution)) vectorMultiply BloodLust_BloodSplashGap);
-            _placement = [_lastSplatterPositionASL, _direction, _bloodSprayForce, _bloodSprayForce] call BloodLust_GetCalculatedSplatterPlacement;
+            _direction = (vectorNormalized ((_directionVector vectorAdd (wind vectorMultiply BloodLust_BloodSplashWindContribution)) vectorMultiply BloodLust_BloodSplashGap)) vectorMultiply _bloodSprayForce;
+            _placement = [_lastSplatterPositionASL, _direction, BloodLust_BloodSplatterIntersectionMaxDistance, BloodLust_BloodSplatterGroundMaxDistance] call BloodLust_GetCalculatedSplatterPlacement;
 
             _placementPositionASL = _placement select 0;
             _placementNormal = _placement select 1;
