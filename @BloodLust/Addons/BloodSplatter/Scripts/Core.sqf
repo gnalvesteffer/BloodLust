@@ -242,8 +242,13 @@ BloodLust_OnUnitHitPart =
                 BloodLust_BloodSprayJitterAmount - (random (BloodLust_BloodSprayJitterAmount * 2)),
                 BloodLust_BloodSprayJitterAmount - (random (BloodLust_BloodSprayJitterAmount * 2))
             ];
+
             [_hitPosition, (vectorDir _bullet) vectorAdd _sprayJitter, (vectorUp _bullet) vectorAdd _sprayJitter] call BloodLust_CreateBloodSpray;
-            [_hitPosition, (vectorDir _bullet) vectorAdd _sprayJitter, (vectorMagnitude _velocity) * 0.001, 0.15] call BloodLust_CreateBloodSplash;
+
+            if(BloodLust_IsBloodSplashingEnabled && (random 1) <= BloodLust_BloodSplashProbability) then
+            {
+                [_hitPosition, (vectorDir _bullet) vectorAdd _sprayJitter, (vectorMagnitude _velocity) * BloodLust_BloodSplashProjectileSpeedContribution, BloodLust_BloodSplashDuration] call BloodLust_CreateBloodSplash;
+            };
         };
     };
 
@@ -953,10 +958,12 @@ BloodLust_CreateBloodSplash =
 
             if(time >= _endTime) then
             {
+                deleteVehicle _logic;
                 [_this select 1] call CBA_fnc_removePerFrameHandler;
             };
 
-            _placement = [_lastSplatterPositionASL, _directionVector vectorAdd (wind vectorMultiply 0.01), _bloodSprayForce, _bloodSprayForce] call BloodLust_GetCalculatedSplatterPlacement;
+            _direction = vectorNormalized ((_directionVector vectorAdd (wind vectorMultiply BloodLust_BloodSplashWindContribution)) vectorMultiply BloodLust_BloodSplashGap);
+            _placement = [_lastSplatterPositionASL, _direction, _bloodSprayForce, _bloodSprayForce] call BloodLust_GetCalculatedSplatterPlacement;
 
             _placementPositionASL = _placement select 0;
             _placementNormal = _placement select 1;
@@ -970,7 +977,7 @@ BloodLust_CreateBloodSplash =
             _logic setVariable ["_bloodSprayForce", _bloodSprayForce * _drag];
             _logic setVariable ["_directionVector", _directionVector vectorAdd [0, 0, -0.098]];
         },
-        0.01,
+        BloodLust_BloodSplashInterval,
         _logicHandle
     ] call CBA_fnc_addPerFrameHandler;
 };

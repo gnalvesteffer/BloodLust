@@ -98,7 +98,14 @@ BloodLust_SettingsManager_Properties =
     ["BloodLust_BloodPoolTextures", "parse", "Blood pool texture sets."],
     ["BloodLust_IsTexturePreloadingEnabled", "bool", "Toggles the preloading of textures. May reduce flickering of animated textures, but will result in a possible blood splatter anomaly at the start of the mission."],
     ["BloodLust_ExplosionGibForceMultiplier", "number", "Controls how much an explosive force affects vaporization gib speeds."],
-    ["BloodLust_BloodSprayJitterAmount", "number", "The angle spread of blood sprays from gun shot wounds."]
+    ["BloodLust_BloodSprayJitterAmount", "number", "The angle spread of blood sprays from gun shot wounds."],
+    ["BloodLust_IsBloodSplashingEnabled", "bool", "Toggles blood droplets splashing out from blood sprays."],
+    ["BloodLust_BloodSplashProjectileSpeedContribution", "number", "Scales how much the speed of the projectile affects blood splashing force."],
+    ["BloodLust_BloodSplashDuration", "number", "The duration in seconds that a blood splash should be processed."],
+    ["BloodLust_BloodSplashProbability", "number", "The probability that blood will splash from a blood spray."],
+    ["BloodLust_BloodSplashGap", "number", "The distance between each blood splash droplet (lower numbers result in more consistent lines)."],
+    ["BloodLust_BloodSplashWindContribution", "number", "Scales how much the wind affects the blood splashing path."],
+    ["BloodLust_BloodSplashInterval", "number", "Seconds between each blood splash droplet placement."]
 ];
 
 BloodLust_SettingsManager_OnLoad =
