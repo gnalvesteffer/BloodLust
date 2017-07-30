@@ -774,7 +774,7 @@ BloodLust_MakeUnitBleed =
                 _splatter = call BloodLust_CreateBloodSmearObject;
                 _splatter setObjectTexture [0, selectRandom BloodLust_SmearTextures];
                 _splatter setPosASL _splatterPosition;
-                _splatter setVectorDirAndUp [[sin _splatterAngle, cos _splatterAngle, sin _splatterAngle * cos _splatterAngle] vectorCrossProduct _surfaceNormal, _surfaceNormal];
+                [_splatter, _surfaceNormal, _splatterAngle] call BloodLust_RotateObjectAroundNormal;
 
                 {
                     [_splatter] call _x;
@@ -806,7 +806,7 @@ BloodLust_MakeUnitBleed =
                     _splatter = call BloodLust_CreateBleedSplatterObject;
                     _splatter setObjectTexture [0, selectRandom BloodLust_BleedTextures];
                     _splatter setPosASL _splatterPosition;
-                    _splatter setVectorDirAndUp [[sin _splatterAngle, cos _splatterAngle, sin _splatterAngle * cos _splatterAngle] vectorCrossProduct _surfaceNormal, _surfaceNormal];
+                    [_splatter, _surfaceNormal, _splatterAngle] call BloodLust_RotateObjectAroundNormal;
 
                     {
                         [_splatter] call _x;
@@ -836,7 +836,7 @@ BloodLust_MakeUnitBleed =
                         _target setVariable ["BloodLust_HasBloodPool", true];
                         _bloodPool = call BloodLust_CreateBloodPoolObject;
                         _bloodPool setPosASL (_surfacePosition vectorAdd (_surfaceNormal vectorMultiply 0.01));
-                        _bloodPool setVectorDirAndUp [[sin _splatterAngle, cos _splatterAngle, sin _splatterAngle * cos _splatterAngle] vectorCrossProduct _surfaceNormal, _surfaceNormal];
+                        [_bloodPool, _surfaceNormal, _splatterAngle] call BloodLust_RotateObjectAroundNormal;
                     };
                 };
             };
@@ -940,12 +940,29 @@ BloodLust_SprayBlood =
         _splatter = call BloodLust_CreateBleedSplatterObject;
         _splatter setObjectTexture [0, selectRandom BloodLust_BleedTextures];
         _splatter setPosASL (_splatterPosition vectorAdd (_splatterNormal vectorMultiply 0.01));
-        _splatter setVectorDirAndUp [[sin _splatterAngle, cos _splatterAngle, sin _splatterAngle * cos _splatterAngle] vectorCrossProduct _splatterNormal, _splatterNormal];
+        [_splatter, _splatterNormal, _splatterAngle] call BloodLust_RotateObjectAroundNormal;
 
         sleep (random _bloodSprayIntervalSeconds + _bloodSprayIntervalVariance);
     };
 
     deleteVehicle _dummyPhysicsObject;
+};
+
+//Returns: [vectorDir, vectorUp]
+BloodLust_RotateAroundNormal =
+{
+    _normal = param [0];
+    _angle = param [1];
+    [[sin _angle, cos _angle, sin _angle * cos _angle] vectorCrossProduct _normal, _normal];
+};
+
+BloodLust_RotateObjectAroundNormal =
+{
+    _object = param [0];
+    _normal = param [1];
+    _angle = param [2];
+
+    _object setVectorDirAndUp ([_normal, _angle] call BloodLust_RotateAroundNormal);
 };
 
 //Returns: [3D position of splatter, 3D surface normal, is the splatter on a surface (true = surface, false = ground), intersecting object]
@@ -997,6 +1014,8 @@ BloodLust_GetCalculatedSplatterPlacement =
         _placementObject = _surfaceIntersection select 4;
         _placementIsOnSurface = !(isNull _placementObject);
     };
+
+    _placementPosition = _placementPosition vectorAdd (_placementNormal vectorMultiply (random 0.01));
 
     [_placementPosition, _placementNormal, _placementIsOnSurface, _placementObject];
 };
@@ -1078,7 +1097,7 @@ BloodLust_CreateBloodSplatter =
 
     _splatter setObjectTexture [0, _splatterTexture];
     _splatter setPosASL (_splatterPosition vectorAdd (_splatterNormal vectorMultiply 0.01));
-    _splatter setVectorDirAndUp [[sin _splatterAngle, cos _splatterAngle, sin _splatterAngle * cos _splatterAngle] vectorCrossProduct _splatterNormal, _splatterNormal];
+    [_splatter, _splatterNormal, _splatterAngle] call BloodLust_RotateObjectAroundNormal;
 
     {
         [_splatter] call _x;
