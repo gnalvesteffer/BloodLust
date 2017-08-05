@@ -1,0 +1,14 @@
+ambient[] = {0.5,0,0,1};
+diffuse[] = {0,0,0,1};
+forcedDiffuse[] = {0.2,0,0,0};
+emmisive[] = {0,0,0,0};
+specular[] = {0,0,0,0};
+specularPower = 0;
+fogMode = "Fog";
+PixelShaderID = "Normal";
+VertexShaderID = "Basic";
+renderFlags[] = {"NoZWrite"};
+class StageTI
+{
+	texture = "a3\data_f\default_hot_ti_ca.paa";
+};

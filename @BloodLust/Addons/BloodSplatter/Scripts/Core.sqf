@@ -967,15 +967,16 @@ BloodLust_CreateBloodSplash =
 
             _placementPositionASL = _placement select 0;
             _placementNormal = _placement select 1;
+            _angleToLastSplatter = ([_placementPositionASL, _lastSplatterPositionASL] call BIS_fnc_dirTo) + 90;
 
-            _splatter = call BloodLust_CreateBleedSplatterObject;
+            _splatter = call BloodLust_CreateTinyBleedSplatterObject;
             _splatter setObjectTexture [0, selectRandom BloodLust_BleedTextures];
             _splatter setPosASL _placementPositionASL;
-            [_splatter, _placementNormal, random 360] call BloodLust_RotateObjectAroundNormal;
+            [_splatter, _placementNormal, _angleToLastSplatter] call BloodLust_RotateObjectAroundNormal;
 
             _logic setVariable ["_lastSplatterPositionASL", _placementPositionASL];
             _logic setVariable ["_bloodSprayForce", _bloodSprayForce * _drag];
-            _logic setVariable ["_directionVector", _directionVector vectorAdd [0, 0, -0.098]];
+            _logic setVariable ["_directionVector", _directionVector vectorAdd [0, 0, -0.98 * BloodLust_BloodSplashInterval]];
         },
         BloodLust_BloodSplashInterval,
         _logicHandle
@@ -1199,6 +1200,27 @@ BloodLust_CreateBleedSplatterObject =
     else
     {
         _splatter = createSimpleObject ["BloodSplatter_SmallPlane", [0, 0, 0]];
+    };
+
+    BloodLust_BleedSplatters pushBack _splatter;
+    _splatter;
+};
+
+BloodLust_CreateTinyBleedSplatterObject =
+{
+    if(call BloodLust_IsMaxBleedSplattersReached) then
+    {
+        call BloodLust_RemoveOldBleedSplatter;
+    };
+
+    _splatter = objNull;
+    if(isMultiplayer) then
+    {
+        _splatter = "BloodSplatter_TinyPlane" createVehicleLocal [0, 0, 0];
+    }
+    else
+    {
+        _splatter = createSimpleObject ["BloodSplatter_TinyPlane", [0, 0, 0]];
     };
 
     BloodLust_BleedSplatters pushBack _splatter;
