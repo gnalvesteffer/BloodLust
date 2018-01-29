@@ -103,9 +103,6 @@ BloodLust_SettingsManager_Properties =
     ["BloodLust_BloodSplashProjectileSpeedContribution", "number", "Scales how much the speed of the projectile affects blood splashing force."],
     ["BloodLust_BloodSplashDuration", "number", "The duration in seconds that a blood splash should be processed."],
     ["BloodLust_BloodSplashProbability", "number", "The probability that blood will splash from a blood spray."],
-    ["BloodLust_BloodSplashGap", "number", "The distance between each blood splash droplet (lower numbers result in more consistent lines)."],
-    ["BloodLust_BloodSplashWindContribution", "number", "Scales how much the wind affects the blood splashing path."],
-    ["BloodLust_BloodSplashInterval", "number", "Seconds between each blood splash droplet placement."]
 ];
 
 BloodLust_SettingsManager_OnLoad =

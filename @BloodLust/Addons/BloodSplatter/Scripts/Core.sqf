@@ -925,62 +925,59 @@ BloodLust_CreateBloodSpray =
 
 BloodLust_CreateBloodSplash =
 {
-    _sourcePositionASL = param [0];
-    _directionVector = param [1];
-    _bloodSprayForce = param [2, 0.1];
-    _duration = param [3, 0.15];
-    _drag = param [4, 0.995];
-
-    _logic = "Logic" createVehicleLocal [0, 0, 0];
-    _logic setVariable ["_beginTime", time];
-    _logic setVariable ["_endTime", time + _duration];
-    _logic setVariable ["_sourcePositionASL", _sourcePositionASL];
-    _logic setVariable ["_directionVector", _directionVector];
-    _logic setVariable ["_bloodSprayForce", _bloodSprayForce];
-    _logic setVariable ["_lastSplatterPositionASL", _sourcePositionASL];
-    _logic setVariable ["_drag", _drag];
-
-    _logicHandle = _logic call BIS_fnc_objectVar;
-    missionNamespace setVariable [_logicHandle, _logic];
+    _splashStartPosition = param [0];
+    _splashDirectionVector = param [1];
+    _splashForce = param [2];
+    _splashDuration = param [3];
+    _startTime = time;
+    _endTime = _startTime + _splashDuration;
 
     [
         {
-            _logicHandle = _this select 0;
-            _logic = missionNamespace getVariable _logicHandle;
-            _beginTime = _logic getVariable "_beginTime";
-            _endTime = _logic getVariable "_endTime";
-            _sourcePositionASL = _logic getVariable "_sourcePositionASL";
-            _directionVector = _logic getVariable "_directionVector";
-            _bloodSprayForce = _logic getVariable "_bloodSprayForce";
-            _lastSplatterPositionASL = _logic getVariable "_lastSplatterPositionASL";
-            _drag = _logic getVariable "_drag";
-            _placement = [];
+            _arguments = _this getVariable "params";
+            _splashStartPosition = _arguments select 0;
+            _splashDirectionVector = _arguments select 1;
+            _splashForce = _arguments select 2;
+            _splashDuration = _arguments select 3;
+            _startTime = _arguments select 4;
+            _endTime = _arguments select 5;
+            _lastSplatterPositionASL = _this getVariable ["LastSplatterPositionASL", _splashStartPosition];
+            _currentSplashTime = time - _startTime;
+            _currentSplashGravity = [0, 0, -9.81] vectorMultiply _currentSplashTime;
+            _currentSplashForceVector = (_splashDirectionVector vectorMultiply (_splashForce * _currentSplashTime)) vectorAdd _currentSplashGravity;
 
-            if(time >= _endTime) then
-            {
-                deleteVehicle _logic;
-                [_this select 1] call CBA_fnc_removePerFrameHandler;
-            };
-
-            _direction = (vectorNormalized ((_directionVector vectorAdd (wind vectorMultiply BloodLust_BloodSplashWindContribution)) vectorMultiply BloodLust_BloodSplashGap)) vectorMultiply _bloodSprayForce;
-            _placement = [_lastSplatterPositionASL, _direction, BloodLust_BloodSplatterIntersectionMaxDistance, BloodLust_BloodSplatterGroundMaxDistance] call BloodLust_GetCalculatedSplatterPlacement;
-
-            _placementPositionASL = _placement select 0;
-            _placementNormal = _placement select 1;
-            _angleToLastSplatter = ([_placementPositionASL, _lastSplatterPositionASL] call BIS_fnc_dirTo) + 90;
+            _splatterPlacement = [_lastSplatterPositionASL, _currentSplashForceVector, BloodLust_BloodSplatterIntersectionMaxDistance, BloodLust_BloodSplatterGroundMaxDistance] call BloodLust_GetCalculatedSplatterPlacement;
+            _splatterPosition = _splatterPlacement select 0;
+            _splatterNormal = _splatterPlacement select 1;
+            _splatterAngle = ((_splashDirectionVector select 0) atan2 (_splashDirectionVector select 1)) + 90;
 
             _splatter = call BloodLust_CreateTinyBleedSplatterObject;
             _splatter setObjectTexture [0, selectRandom BloodLust_BleedTextures];
-            _splatter setPosASL _placementPositionASL;
-            [_splatter, _placementNormal, _angleToLastSplatter] call BloodLust_RotateObjectAroundNormal;
-
-            _logic setVariable ["_lastSplatterPositionASL", _placementPositionASL];
-            _logic setVariable ["_bloodSprayForce", _bloodSprayForce * _drag];
-            _logic setVariable ["_directionVector", _directionVector vectorAdd [0, 0, -0.98 * BloodLust_BloodSplashInterval]];
+            _splatter setPosASL _splatterPosition;
+            [_splatter, _splatterNormal, _splatterAngle] call BloodLust_RotateObjectAroundNormal;
+            _this setVariable ["LastSplatterPositionASL", _splatterPosition];
         },
-        BloodLust_BloodSplashInterval,
-        _logicHandle
-    ] call CBA_fnc_addPerFrameHandler;
+        0,
+        [
+            _splashStartPosition,
+            _splashDirectionVector,
+            _splashForce,
+            _splashDuration,
+            _startTime,
+            _endTime
+        ],
+        {},
+        {},
+        {
+            random 1 >= 0.25;
+        },
+        {
+            _arguments = _this getVariable "params";
+            _endTime = _arguments select 5;
+            time >= _endTime;
+        },
+        []
+    ] call CBA_fnc_createPerFrameHandlerObject;
 };
 
 //Returns: [3D position of splatter, 3D surface normal, is the splatter on a surface (true = surface, false = ground), intersecting object]
