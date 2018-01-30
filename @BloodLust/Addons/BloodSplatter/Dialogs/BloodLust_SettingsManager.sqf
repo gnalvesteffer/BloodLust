@@ -103,6 +103,10 @@ BloodLust_SettingsManager_Properties =
     ["BloodLust_BloodSplashProjectileSpeedContribution", "number", "Scales how much the speed of the projectile affects blood splashing force."],
     ["BloodLust_BloodSplashDuration", "number", "The duration in seconds that a blood splash should be processed."],
     ["BloodLust_BloodSplashProbability", "number", "The probability that blood will splash from a blood spray."],
+    ["BloodLust_BloodSplashDropletsPerIteration", "number", "The number of blood droplets to spawn per blood splash iteration."],
+    ["BloodLust_BloodSplashDropletInterval", "number", "The minimum delay in seconds before the next group of blood droplets can spawn."],
+    ["BloodLust_BloodSplashJitterAmount", "number", "The amount of positional jitter of blood droplets."],
+    ["BloodLust_IsBloodLustEnabledForDeadUnits", "bool", "Toggles if dead units should have BloodLust effects applied to them."]
 ];
 
 BloodLust_SettingsManager_OnLoad =

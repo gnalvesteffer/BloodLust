@@ -57,7 +57,11 @@ BloodLust_InitUnit =
     _hitPartEventHandlerIndex = _unit addEventHandler ["HitPart",
     {
         if(!BloodLust_IsBloodLustEnabled || count _this > 1) exitWith {}; //Probably an explosion -- let the explosion handler deal with this.
+
         _unit = (_this select 0) select 0;
+
+        if(!BloodLust_IsBloodLustEnabledForDeadUnits && !alive _unit) exitWith {};
+            
         if((position _unit) distance (positionCameraToWorld [0, 0, 0]) <= BloodLust_BloodLustActivationDistance) then
         {
             {
@@ -107,7 +111,11 @@ BloodLust_InitUnit =
     _hitEventHandlerIndex = _unit addEventHandler ["Hit",
     {
         if(!BloodLust_IsBloodLustEnabled) exitWith {};
+
         _unit = _this select 0;
+
+        if(!BloodLust_IsBloodLustEnabledForDeadUnits && !alive _unit) exitWith {};
+
         if((position _unit) distance (positionCameraToWorld [0, 0, 0]) <= BloodLust_BloodLustActivationDistance) then
         {
             {
@@ -245,7 +253,7 @@ BloodLust_OnUnitHitPart =
 
             [_hitPosition, (vectorDir _bullet) vectorAdd _sprayJitter, (vectorUp _bullet) vectorAdd _sprayJitter] call BloodLust_CreateBloodSpray;
 
-            if(BloodLust_IsBloodSplashingEnabled && (random 1) <= BloodLust_BloodSplashProbability) then
+            if(BloodLust_IsBloodSplashingEnabled) then
             {
                 [_hitPosition, (vectorDir _bullet) vectorAdd _sprayJitter, (vectorMagnitude _velocity) * BloodLust_BloodSplashProjectileSpeedContribution, BloodLust_BloodSplashDuration] call BloodLust_CreateBloodSplash;
             };
@@ -818,7 +826,7 @@ BloodLust_MakeUnitBleed =
                         [_splatter] call _x;
                     } foreach BloodLust_OnBleedSplatterCreatedEventHandlers;
 
-                    [selectRandom BloodLust_BleedSounds, _splatter, false, _splatterPosition, _surfaceDistance / (BloodLust_BleedSoundAudibleVolume max 1), 1, BloodLust_BleedSoundAudibleDistance] call BloodLust_PlaySound;;
+                    [selectRandom BloodLust_BleedSounds, _splatter, false, _splatterPosition, _surfaceDistance / (BloodLust_BleedSoundAudibleVolume max 1), 1, BloodLust_BleedSoundAudibleDistance] call BloodLust_PlaySound;
                     _target setVariable [format ["BloodLust_NextBleedTime_%1", _selectionName], call BloodLust_GetNextBleedTime];
 
                     if(BloodLust_IsArterialBloodSprayEnabled && time <= _arterialBloodSprayEndTime && random 1 <= BloodLust_ArterialBloodSprayProbability) then
@@ -944,18 +952,34 @@ BloodLust_CreateBloodSplash =
             _lastSplatterPositionASL = _this getVariable ["LastSplatterPositionASL", _splashStartPosition];
             _currentSplashTime = time - _startTime;
             _currentSplashGravity = [0, 0, -9.81] vectorMultiply _currentSplashTime;
-            _currentSplashForceVector = (_splashDirectionVector vectorMultiply (_splashForce * _currentSplashTime)) vectorAdd _currentSplashGravity;
+            _halfDropletJitterAmount = BloodLust_BloodSplashJitterAmount / 2;
 
-            _splatterPlacement = [_lastSplatterPositionASL, _currentSplashForceVector, BloodLust_BloodSplatterIntersectionMaxDistance, BloodLust_BloodSplatterGroundMaxDistance] call BloodLust_GetCalculatedSplatterPlacement;
-            _splatterPosition = _splatterPlacement select 0;
-            _splatterNormal = _splatterPlacement select 1;
-            _splatterAngle = ((_splashDirectionVector select 0) atan2 (_splashDirectionVector select 1)) + 90;
+            for[{_dropletIndex = 0}, {_dropletIndex < BloodLust_BloodSplashDropletsPerIteration}, {_dropletIndex = _dropletIndex + 1}] do
+            {
+                _currentSplashAngleJitter =
+                [
+                    _halfDropletJitterAmount - (random BloodLust_BloodSplashJitterAmount),
+                    _halfDropletJitterAmount - (random BloodLust_BloodSplashJitterAmount),
+                    _halfDropletJitterAmount - (random BloodLust_BloodSplashJitterAmount)
+                ];
+                _currentSplashForceVector = ((vectorNormalized (_splashDirectionVector vectorAdd _currentSplashAngleJitter)) vectorMultiply (_splashForce * _currentSplashTime + (_dropletIndex * BloodLust_BloodSplashDropletInterval))) vectorAdd _currentSplashGravity;
 
-            _splatter = call BloodLust_CreateTinyBleedSplatterObject;
-            _splatter setObjectTexture [0, selectRandom BloodLust_BleedTextures];
-            _splatter setPosASL _splatterPosition;
-            [_splatter, _splatterNormal, _splatterAngle] call BloodLust_RotateObjectAroundNormal;
-            _this setVariable ["LastSplatterPositionASL", _splatterPosition];
+                _splatterPlacement = [_lastSplatterPositionASL, _currentSplashForceVector, BloodLust_BloodSplatterIntersectionMaxDistance, BloodLust_BloodSplatterGroundMaxDistance] call BloodLust_GetCalculatedSplatterPlacement;
+                _splatterPosition = _splatterPlacement select 0;
+                _splatterNormal = _splatterPlacement select 1;
+                _splatterAngle = ((_splashDirectionVector select 0) atan2 (_splashDirectionVector select 1)) + 90;
+
+                _splatter = call BloodLust_CreateTinyBleedSplatterObject;
+                _splatter setObjectTexture [0, selectRandom BloodLust_BleedTextures];
+                _splatter setPosASL _splatterPosition;
+                [_splatter, _splatterNormal, _splatterAngle] call BloodLust_RotateObjectAroundNormal;
+
+                [selectRandom BloodLust_BleedSounds, _splatter, false, _splatterPosition, vectorMagnitude (_splatterPosition vectorDiff _splashStartPosition), 1, BloodLust_BleedSoundAudibleDistance] call BloodLust_PlaySound;
+
+                _this setVariable ["LastSplatterPositionASL", _splatterPosition];
+            };
+
+            _nextSplatterTime = time + (BloodLust_BloodSplashDropletInterval * BloodLust_BloodSplashDropletsPerIteration);
         },
         0,
         [
@@ -966,17 +990,19 @@ BloodLust_CreateBloodSplash =
             _startTime,
             _endTime
         ],
-        {},
+        {
+            _nextSplatterTime = 0;
+        },
         {},
         {
-            random 1 >= 0.25;
+            time >= _nextSplatterTime && random 1 <= BloodLust_BloodSplashProbability;
         },
         {
             _arguments = _this getVariable "params";
             _endTime = _arguments select 5;
             time >= _endTime;
         },
-        []
+        ["_nextSplatterTime"]
     ] call CBA_fnc_createPerFrameHandlerObject;
 };
 
