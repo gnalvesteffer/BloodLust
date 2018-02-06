@@ -973,7 +973,14 @@ BloodLust_CreateBloodSplash =
                 _splatterAngle = ((_splashDirectionVector select 0) atan2 (_splashDirectionVector select 1)) + 90;
 
                 _splatter = call BloodLust_CreateTinyBleedSplatterObject;
-                _splatter setObjectTexture [0, selectRandom BloodLust_BleedTextures];
+                if(vectorMagnitude _currentSplashForceVector >= BloodLust_BloodSplashDropletTextureSpeedThreshold) then
+                {
+                    _splatter setObjectTexture [0, selectRandom BloodLust_BleedTextures];
+                }
+                else
+                {
+                    _splatter setObjectTexture [0, selectRandom BloodLust_SmearTextures];
+                };
                 _splatter setPosASL _splatterPosition;
                 [_splatter, _splatterNormal, _splatterAngle] call BloodLust_RotateObjectAroundNormal;
 
