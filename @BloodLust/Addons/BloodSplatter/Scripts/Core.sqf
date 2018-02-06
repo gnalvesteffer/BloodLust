@@ -61,7 +61,7 @@ BloodLust_InitUnit =
         _unit = (_this select 0) select 0;
 
         if(!BloodLust_IsBloodLustEnabledForDeadUnits && !alive _unit) exitWith {};
-            
+
         if((position _unit) distance (positionCameraToWorld [0, 0, 0]) <= BloodLust_BloodLustActivationDistance) then
         {
             {
@@ -967,6 +967,9 @@ BloodLust_CreateBloodSplash =
                 _splatterPlacement = [_lastSplatterPositionASL, _currentSplashForceVector, BloodLust_BloodSplatterIntersectionMaxDistance, BloodLust_BloodSplatterGroundMaxDistance] call BloodLust_GetCalculatedSplatterPlacement;
                 _splatterPosition = _splatterPlacement select 0;
                 _splatterNormal = _splatterPlacement select 1;
+
+                if(_splatterPosition distance _lastSplatterPositionASL < BloodLust_BloodSplashMinimumDistanceBetweenDroplets) exitWith {};
+
                 _splatterAngle = ((_splashDirectionVector select 0) atan2 (_splashDirectionVector select 1)) + 90;
 
                 _splatter = call BloodLust_CreateTinyBleedSplatterObject;

@@ -45,6 +45,7 @@ BloodLust_IsBloodSplashingEnabled = profileNamespace getVariable ["BloodLust_IsB
 BloodLust_BloodSplashProjectileSpeedContribution = profileNamespace getVariable ["BloodLust_BloodSplashProjectileSpeedContribution", 0.1];
 BloodLust_BloodSplashDuration = profileNamespace getVariable ["BloodLust_BloodSplashDuration", 0.15];
 BloodLust_BloodSplashProbability = profileNamespace getVariable ["BloodLust_BloodSplashProbability", 0.8];
+BloodLust_BloodSplashMinimumDistanceBetweenDroplets = profileNamespace getVariable ["BloodLust_BloodSplashMinimumDistanceBetweenDroplets", 0.015];
 BloodLust_BloodSplashDropletInterval = profileNamespace getVariable ["BloodLust_BloodSplashDropletInterval", 0.001];
 BloodLust_BloodSplashDropletsPerIteration = profileNamespace getVariable ["BloodLust_BloodSplashDropletsPerIteration", 3];
 BloodLust_BloodSplashJitterAmount = profileNamespace getVariable ["BloodLust_BloodSplashJitterAmount", 0.3];

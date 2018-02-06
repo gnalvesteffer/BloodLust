@@ -106,6 +106,7 @@ BloodLust_SettingsManager_Properties =
     ["BloodLust_BloodSplashDropletsPerIteration", "number", "The number of blood droplets to spawn per blood splash iteration."],
     ["BloodLust_BloodSplashDropletInterval", "number", "The minimum delay in seconds before the next group of blood droplets can spawn."],
     ["BloodLust_BloodSplashJitterAmount", "number", "The amount of positional jitter of blood droplets."],
+    ["BloodLust_BloodSplashMinimumDistanceBetweenDroplets", "number", "Distance in meters that a blood droplet has to be from the previous droplet in order to spawn."],
     ["BloodLust_IsBloodLustEnabledForDeadUnits", "bool", "Toggles if dead units should have BloodLust effects applied to them."]
 ];
 
