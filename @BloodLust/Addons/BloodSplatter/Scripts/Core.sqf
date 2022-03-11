@@ -635,7 +635,7 @@ BloodLust_VaporizeUnit =
         _largeSplatter setObjectTexture [0, selectRandom BloodLust_LargeVaporizationBloodSplatters];
         _largeSplatter setDir (random 360);
         _largeSplatter setVectorUp _unitSurfaceNormal;
-        _largeSplatter setPosASL (_unitSurfacePosition vectorAdd (_unitSurfaceNormal vectorMultiply (random 0.01)));
+        _largeSplatter setPosASL (_unitSurfacePosition vectorAdd (_unitSurfaceNormal vectorMultiply 0.05));
         _bloodSplatters pushBack _largeSplatter;
         [_largeSplatter, _unitSurfaceIntersectingObject] call BloodLust_AssignSplatterToBuilding;
     };
