@@ -257,16 +257,32 @@ BloodLust_OnUnitHitPart =
 
     if(random 1 <= BloodLust_BloodSplatterProbability) then
     {
+        _splatterTextures = [_target, _selections] call BloodLust_GetSplatterTextures;
+        if(count _splatterTextures == 0) exitWith {};
+        _splatterJitter =
+        [
+            BloodLust_BloodSplatterJitterAmount - (random (BloodLust_BloodSplatterJitterAmount * 2)),
+            BloodLust_BloodSplatterJitterAmount - (random (BloodLust_BloodSplatterJitterAmount * 2)),
+            BloodLust_BloodSplatterJitterAmount - (random (BloodLust_BloodSplatterJitterAmount * 2))
+        ];
+
+        // Splatter that spawns under the character.
+        if (BloodLust_IsUnderCharacterBloodSplatterEnabled) then
+        {
+            [
+                _target,
+                _hitPosition,
+                _splatterJitter,
+                BloodLust_BloodSplatterIntersectionMaxDistance,
+                (direction _bullet + 90) + random BloodLust_BloodSplatterAngleJitterAmount,
+                selectRandom _splatterTextures,
+                call BloodLust_CreateMediumBloodSplatterObject
+            ] call BloodLust_CreateBloodSplatter;
+        };
+
         for "_i" from 1 to _bloodSplatterIterations do
         {
-            _splatterTextures = [_target, _selections] call BloodLust_GetSplatterTextures;
-            if(count _splatterTextures == 0) exitWith {};
-            _splatterJitter =
-            [
-                BloodLust_BloodSplatterJitterAmount - (random (BloodLust_BloodSplatterJitterAmount * 2)),
-                BloodLust_BloodSplatterJitterAmount - (random (BloodLust_BloodSplatterJitterAmount * 2)),
-                BloodLust_BloodSplatterJitterAmount - (random (BloodLust_BloodSplatterJitterAmount * 2))
-            ];
+            // Intersecting surface splatter.
             [
                 _target,
                 _hitPosition,
@@ -349,15 +365,7 @@ BloodLust_CreateBloodPoolObject =
         call BloodLust_RemoveOldBloodSplatter;
     };
 
-    _pool = objNull;
-    if(isMultiplayer) then
-    {
-        _pool = "BloodSplatter_MediumPlane" createVehicleLocal [0, 0, 0];
-    }
-    else
-    {
-        _pool = createSimpleObject ["BloodSplatter_MediumPlane", [0, 0, 0]];
-    };
+    _pool = call BloodLust_CreateMediumBloodSplatterObject;
 
     BloodLust_BloodSplatters pushBack _pool;
     [selectRandom BloodLust_BloodPoolTextures, BloodLust_BloodPoolFramerate, false, false, _pool, {}] call BloodLust_AnimateObjectTexture;
@@ -812,7 +820,7 @@ BloodLust_MakeUnitBleed =
                 if(_surfaceDistance > 0.3) then
                 {
                     _splatterPosition = _surfacePosition vectorAdd (_surfaceNormal vectorMultiply 0.01);
-                    _splatter = call BloodLust_CreateBleedSplatterObject;
+                    _splatter = call BloodLust_CreateTinyBleedSplatterObject;
                     _splatter setObjectTexture [0, selectRandom BloodLust_BleedTextures];
                     _splatter setPosASL _splatterPosition;
                     [_splatter, _surfaceNormal, _splatterAngle] call BloodLust_RotateObjectAroundNormal;
@@ -1015,7 +1023,13 @@ BloodLust_CreateBloodSplatter =
     _intersectionDistance = _this select 3;
     _splatterAngle = _this select 4;
     _splatterTexture = _this select 5;
-    _splatter = call BloodLust_CreateBloodSplatterObject;
+    _splatter = _this select 6;
+
+    if (isNil "_splatter") then
+    {
+        _splatter = call BloodLust_CreateBloodSplatterObject;
+    };
+
     _splatterPosition = [0, 0, 0];
     _splatterNormal = [0, 0, 0];
     _intersectionEndPositionASL = _positionASL vectorAdd (_normalDirection vectorMultiply _intersectionDistance);
@@ -1080,6 +1094,27 @@ BloodLust_CreateBloodSplatterObject =
     else
     {
         _splatter = createSimpleObject ["BloodSplatter_Plane", [0, 0, 0]];
+    };
+
+    BloodLust_BloodSplatters pushBack _splatter;
+    _splatter;
+};
+
+BloodLust_CreateMediumBloodSplatterObject =
+{
+    if(call BloodLust_IsMaxBloodSplattersReached) then
+    {
+        call BloodLust_RemoveOldBloodSplatter;
+    };
+
+    _splatter = objNull;
+    if(isMultiplayer) then
+    {
+        _splatter = "BloodSplatter_MediumPlane" createVehicleLocal [0, 0, 0];
+    }
+    else
+    {
+        _splatter = createSimpleObject ["BloodSplatter_MediumPlane", [0, 0, 0]];
     };
 
     BloodLust_BloodSplatters pushBack _splatter;

@@ -2,10 +2,12 @@
 
 ## 2022.03.24:
 
+- Added blood splatters at the base of characters when they're hit, making hits more bloody (toggleable via `BloodLust_IsUnderCharacterBloodSplatterEnabled`).
 - Added setting to disable BloodLust processing on dead units for performance gains.
 - Swapped out usages of createVehicleLocal to createSimpleObject for spawning objects such as blood splatters when in singleplayer for improved performance.
 - Disabled blood pooling by default due to flickering issue.
 - Reduced blood pool size.
+- Reduced bleed droplet size.
 - Increased blood brightness.
 - Improved surface detection for blood splatter placement, allowing blood to splatter on more surfaces.
 - Fixed very transparent bleed droplet textures.

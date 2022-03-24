@@ -24,6 +24,7 @@ BloodLust_VaporizedBloodSplatterJitterAmount   = profileNamespace getVariable ["
 BloodLust_VaporizationDamageThreshold          = profileNamespace getVariable ["BloodLust_VaporizationDamageThreshold", 1];
 BloodLust_IsVaporizationEnabled                = profileNamespace getVariable ["BloodLust_IsVaporizationEnabled", true];
 BloodLust_IsVaporizationEnabledOnPlayer        = profileNamespace getVariable ["BloodLust_IsVaporizationEnabledOnPlayer", true];
+BloodLust_IsUnderCharacterBloodSplatterEnabled = profileNamespace getVariable ["BloodLust_IsUnderCharacterBloodSplatterEnabled", true];
 BloodLust_BloodSplatterGroundMaxDistance       = profileNamespace getVariable ["BloodLust_BloodSplatterGroundMaxDistance", 1.5];
 BloodLust_BloodSplatterIntersectionMaxDistance = profileNamespace getVariable ["BloodLust_BloodSplatterIntersectionMaxDistance", 4];
 BloodLust_BloodSplatterJitterAmount            = profileNamespace getVariable ["BloodLust_BloodSplatterJitterAmount", 0];

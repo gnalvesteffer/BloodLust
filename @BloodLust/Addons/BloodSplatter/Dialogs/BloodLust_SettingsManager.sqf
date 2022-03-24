@@ -15,6 +15,7 @@ BloodLust_SettingsManager_Properties =
     ["BloodLust_VaporizationDamageThreshold", "number", "Minimum amount of damage required to vaporize a unit."],
     ["BloodLust_IsVaporizationEnabled", "bool", "Toggles the vaporization effect. Set to false if you don't want to see units exploding to bits."],
     ["BloodLust_IsVaporizationEnabledOnPlayer", "bool", "Toggles the vaporization effect on the player. Set to false to prevent the player from exploding to bits."],
+    ["BloodLust_IsUnderCharacterBloodSplatterEnabled", "bool", "Toggles larger blood splatters that spawn under characters when hit."],
     ["BloodLust_BloodSplatterGroundMaxDistance", "number", "Limits the distance that blood splatters can be spawned from a unit on to the ground."],
     ["BloodLust_BloodSplatterIntersectionMaxDistance", "number", "Limits the distance that blood splatters can be spawned from a unit on to a surface."],
     ["BloodLust_BloodSplatterJitterAmount", "number", "Scatters the position of blood splatters. Decrease this value for splatters to spawn closer to the path of the projectile."],
