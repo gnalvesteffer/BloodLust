@@ -99,15 +99,6 @@ BloodLust_SettingsManager_Properties =
     ["BloodLust_IsTexturePreloadingEnabled", "bool", "Toggles the preloading of textures. May reduce flickering of animated textures, but will result in a possible blood splatter anomaly at the start of the mission."],
     ["BloodLust_ExplosionGibForceMultiplier", "number", "Controls how much an explosive force affects vaporization gib speeds."],
     ["BloodLust_BloodSprayJitterAmount", "number", "The angle spread of blood sprays from gun shot wounds."],
-    ["BloodLust_IsBloodSplashingEnabled", "bool", "Toggles blood droplets splashing out from blood sprays."],
-    ["BloodLust_BloodSplashProjectileSpeedContribution", "number", "Scales how much the speed of the projectile affects blood splashing force."],
-    ["BloodLust_BloodSplashDuration", "number", "The duration in seconds that a blood splash should be processed."],
-    ["BloodLust_BloodSplashProbability", "number", "The probability that blood will splash from a blood spray."],
-    ["BloodLust_BloodSplashDropletsPerIteration", "number", "The number of blood droplets to spawn per blood splash iteration."],
-    ["BloodLust_BloodSplashDropletInterval", "number", "The minimum delay in seconds before the next group of blood droplets can spawn."],
-    ["BloodLust_BloodSplashJitterAmount", "number", "The amount of positional jitter of blood droplets."],
-    ["BloodLust_BloodSplashMinimumDistanceBetweenDroplets", "number", "Distance in meters that a blood droplet has to be from the previous droplet in order to spawn."],
-    ["BloodLust_BloodSplashDropletTextureSpeedThreshold", "number", "The speed that a blood splash must be for a blood droplet texture to be used. Smear textures will be used instead when a splash is slower than this."],
     ["BloodLust_IsBloodLustEnabledForDeadUnits", "bool", "Toggles if dead units should have BloodLust effects applied to them."]
 ];
 
@@ -116,7 +107,7 @@ BloodLust_SettingsManager_OnLoad =
     setAccTime 0;
     (findDisplay 49) closeDisplay 1;
     ctrlSetText [1001, format ["BloodLust v%1 Settings | Press Escape to exit.", getNumber (configFile >> "CfgPatches" >> "BloodSplatter" >> "version")]];
-    ((findDisplay 76542) displayCtrl 1650) ctrlSetStructuredText parseText "<a href='http://www.bitdungeon.org/arma/bloodlust/credits.html'>Credits</a>";
+    ((findDisplay 76542) displayCtrl 1650) ctrlSetStructuredText parseText "<a href='https://steamcommunity.com/sharedfiles/filedetails/?id=667953829'>Steam Workshop</a>";
     _properties = [BloodLust_SettingsManager_Properties, [], {_x select 0}, "ASCEND"] call BIS_fnc_sortBy;
     {
         lbAdd [1500, _x select 0];

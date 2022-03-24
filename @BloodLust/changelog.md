@@ -1,9 +1,18 @@
-[7-22-2017] v2.49:
-Refactored createVehicleLocal usage to createSimpleObject when in singleplayer.
-Reduced blood pool size.
-Increased blood brightness.
-Improved surface detection for blood splatter placement, allowing blood to splatter on more surfaces.
-Added blood splashing, which shoots out lines of blood associated with blood sprays.
+# BloodLust Changelog
+
+## 2022.03.24:
+
+- Added setting to disable BloodLust processing on dead units for performance gains.
+- Swapped out usages of createVehicleLocal to createSimpleObject for spawning objects such as blood splatters when in singleplayer for improved performance.
+- Reduced blood pool size.
+- Increased blood brightness.
+- Improved surface detection for blood splatter placement, allowing blood to splatter on more surfaces.
+- Fixed very transparent bleed droplet textures.
+- Fixed large blood splatters not rendering properly from dead vaporized units.
+
+----
+
+## Legacy Changelog
 
 [7-9-2017] v2.484:
 Reduced blood pool flickering.
