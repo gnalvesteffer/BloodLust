@@ -15,6 +15,7 @@
 - Improved surface detection for blood splatter placement, allowing blood to splatter on more surfaces.
 - Fixed very transparent bleed droplet textures.
 - Fixed large blood splatters not rendering properly from dead vaporized units.
+- Fixed issue where invalid hit selections were causing blood smears to appear when they should be droplets during bleeding.
 
 ----
 

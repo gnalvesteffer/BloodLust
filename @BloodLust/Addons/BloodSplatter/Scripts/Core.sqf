@@ -711,7 +711,7 @@ BloodLust_MakeUnitBleed =
 
     if(count _selections == 0) exitWith {};
 
-    _selectionName     = selectRandom _selections;
+    _selectionName     = selectRandom (_selections select { _x select [0, 3] != "Hit" });
     _endTime           = time + _duration;
     _arterialBloodSprayEndTime = time + BloodLust_ArterialBloodSprayDuration;
     _initialUnitDamage = damage _target;
