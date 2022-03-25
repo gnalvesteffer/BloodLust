@@ -4,11 +4,13 @@
 
 - Added blood splatters at the base of characters when they're hit, making hits more bloody (toggleable via `BloodLust_IsUnderCharacterBloodSplatterEnabled`).
 - Added setting to disable BloodLust processing on dead units for optimization (toggleable via `BloodLust_IsBloodLustEnabledForDeadUnits`, disabled by default).
+- Bleeding slows down over time (configurable via `BloodLust_BleedFrequencySlowdownAmount`).
 - Swapped out usages of createVehicleLocal to createSimpleObject for spawning objects such as blood splatters when in singleplayer for improved performance.
 - Disabled blood pooling by default due to flickering issue.
 - Reduced blood pool size.
 - Reduced bleed droplet size.
 - Increased blood brightness.
+- Couple bleed smearing to bleed interval, introducing variation and eliminating excessive streaks which can impact performance.
 - Improved surface detection for blood splatter placement, allowing blood to splatter on more surfaces.
 - Fixed very transparent bleed droplet textures.
 - Fixed large blood splatters not rendering properly from dead vaporized units.

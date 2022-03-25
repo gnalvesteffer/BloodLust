@@ -55,12 +55,6 @@ BloodLust_GetSurfaceIntersection =
     [_surfaceDistance, _surfaceNormal, _surfacePosition, _isIntersecting, _intersectingObject];
 };
 
-BloodLust_GetNextBleedTime =
-{
-    _return = time + (BloodLust_BleedFrequency + (random BloodLust_BleedFrequencyVariance));
-    _return;
-};
-
 BloodLust_GetVelocityMagnitude =
 {
     _object = param [0];
