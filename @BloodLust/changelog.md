@@ -7,6 +7,7 @@
 - Bleeding slows down over time (configurable via `BloodLust_BleedFrequencySlowdownAmount`).
 - Swapped out usages of createVehicleLocal to createSimpleObject for spawning objects such as blood splatters when in singleplayer for improved performance.
 - Disabled blood pooling by default due to flickering issue.
+- Tweaked blood smearing angle calculation, reducing instances where blood smears are rotated incorrectly.
 - Reduced blood pool size.
 - Reduced bleed droplet size.
 - Increased blood brightness.

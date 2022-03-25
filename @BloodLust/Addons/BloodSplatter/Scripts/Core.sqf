@@ -801,7 +801,7 @@ BloodLust_MakeUnitBleed =
 
                     if(_splatterPosition distance _previousSmearPosition >= BloodLust_BleedSmearSpacing) then
                     {
-                        _splatterAngle = direction _target - ([_splatterPosition, _previousSmearPosition] call BIS_fnc_dirTo);
+                        _splatterAngle = ([_splatterPosition, _previousSmearPosition] call BIS_fnc_dirTo) + 90;
                         _splatter = call BloodLust_CreateBloodSmearObject;
                         _splatter setObjectTexture [0, selectRandom BloodLust_SmearTextures];
                         _splatter setPosASL _splatterPosition;
