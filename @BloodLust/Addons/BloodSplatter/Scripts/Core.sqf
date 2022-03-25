@@ -681,6 +681,16 @@ BloodLust_GetNextBleedTime =
     );
 };
 
+BloodLust_GetNextSmearTime =
+{
+    params ["_smearProgress"];
+    (
+        time +
+        (BloodLust_BleedFrequency + (random BloodLust_BleedFrequencyVariance)) +
+        (_bleedProgress * BloodLust_BleedSmearFrequencySlowdownAmount)
+    );
+};
+
 BloodLust_MakeUnitBleed =
 {
     _hitSelection      = _this select 0;
@@ -707,6 +717,7 @@ BloodLust_MakeUnitBleed =
     _initialUnitDamage = damage _target;
     _bleedSmearEndTime = time + BloodLust_BleedSmearDuration;
     _target setVariable [format ["BloodLust_NextBleedTime_%1", _selectionName], [0] call BloodLust_GetNextBleedTime];
+    _target setVariable [format ["BloodLust_NextSmearTime_%1", _selectionName], [0] call BloodLust_GetNextSmearTime];
 
     [
         {
@@ -721,8 +732,10 @@ BloodLust_MakeUnitBleed =
             _arterialBloodSprayEndTime = _args select 7;
             _bleedSmearEndTime = _args select 8;
             _nextBleedTime = _target getVariable [format ["BloodLust_NextBleedTime_%1", _selectionName], 0];
+            _nextSmearTime = _target getVariable [format ["BloodLust_NextSmearTime_%1", _selectionName], 0];
             _splatterAngle = random 360;
             _bleedProgress = 1 - ((_endTime - time) / _endTime);
+            _smearProgress = 1 - ((_bleedSmearEndTime - time) / _bleedSmearEndTime);
 
             if((time >= _endTime) || (_target getVariable ["BloodLust_IsVaporized", false]) || ((damage _target) < _initialUnitDamage)) exitWith
             {
@@ -732,8 +745,9 @@ BloodLust_MakeUnitBleed =
                 [_this select 1] call CBA_fnc_removePerFrameHandler;
             };
 
-            _hitPointPosition = AGLToASL(_target modelToWorld (_target selectionPosition [_selectionName, "HitPoints"]));
-            _intersectionEndPosition = AGLToASL((_target modelToWorld ((_target selectionPosition [_selectionName, "HitPoints"]))) vectorAdd ((vectorNormalized _projectileVelocity) vectorMultiply 0.3));
+            _selectionPosition = _target selectionPosition [_selectionName, "HitPoints"];
+            _hitPointPosition = AGLToASL(_target modelToWorld _selectionPosition);
+            _intersectionEndPosition = AGLToASL((_target modelToWorld _selectionPosition) vectorAdd ((vectorNormalized _projectileVelocity) vectorMultiply 0.3));
             _surfaceIntersections = lineIntersectsSurfaces
             [
                 _hitPointPosition,
@@ -768,30 +782,30 @@ BloodLust_MakeUnitBleed =
                 ] call _x;
             } foreach BloodLust_OnUnitBleedPreEventHandlers;
 
-            if (time >= _nextBleedTime) then
+            if(count _surfaceIntersections == 0) then
             {
-                if(count _surfaceIntersections == 0) then
-                {
-                    _intersectionEndPosition = AGLToASL(_target modelToWorld ((_target selectionPosition [_selectionName, "HitPoints"]) vectorAdd [0, 0, -0.15]));
-                    _surfaceIntersections = lineIntersectsSurfaces
-                    [
-                        _hitPointPosition,
-                        _intersectionEndPosition,
-                        _target,
-                        vehicle _target,
-                        true,
-                        10,
-                        "VIEW",
-                        "NONE"
-                    ] select {
-                        _intersectingObject  = _x select 2;
-                        _isObjectInIntersectionBlackList = [typeOf _intersectingObject, (getModelInfo _intersectingObject) select 0] call BloodLust_IsClassInIntersectionBlackList;
-                        _return = !_isObjectInIntersectionBlackList;
-                        _return;
-                    };
+                _intersectionEndPosition = AGLToASL(_target modelToWorld ((_target selectionPosition [_selectionName, "HitPoints"]) vectorAdd [0, 0, -0.15]));
+                _surfaceIntersections = lineIntersectsSurfaces
+                [
+                    _hitPointPosition,
+                    _intersectionEndPosition,
+                    _target,
+                    vehicle _target,
+                    true,
+                    10,
+                    "VIEW",
+                    "NONE"
+                ] select {
+                    _intersectingObject  = _x select 2;
+                    _isObjectInIntersectionBlackList = [typeOf _intersectingObject, (getModelInfo _intersectingObject) select 0] call BloodLust_IsClassInIntersectionBlackList;
+                    _return = !_isObjectInIntersectionBlackList;
+                    _return;
                 };
+            };
 
-                if(count _surfaceIntersections > 0 && time <= _bleedSmearEndTime) then
+            if(count _surfaceIntersections > 0 && time <= _bleedSmearEndTime) then
+            {
+                if (time >= _nextSmearTime) then
                 {
                     _previousSmearPosition = _target getVariable [format ["BloodLust_PreviousBleedSmearPosition_%1", _selectionName], [0, 0, 0]];
                     _surfaceIntersection = _surfaceIntersections select 0;
@@ -813,9 +827,13 @@ BloodLust_MakeUnitBleed =
 
                         _target setVariable [format ["BloodLust_PreviousBleedSmearPosition_%1", _selectionName], _splatterPosition];
                         _target setVariable [format ["BloodLust_NextBleedTime_%1", _selectionName], [_bleedProgress] call BloodLust_GetNextBleedTime];
+                        _target setVariable [format ["BloodLust_NextSmearTime_%1", _selectionName], [_smearProgress] call BloodLust_GetNextSmearTime];
                     };
-                }
-                else
+                };
+            }
+            else
+            {
+                if (time >= _nextBleedTime) then
                 {
                     _jitter =
                     [
@@ -843,6 +861,7 @@ BloodLust_MakeUnitBleed =
 
                         [selectRandom BloodLust_BleedSounds, _splatter, false, _splatterPosition, _surfaceDistance / (BloodLust_BleedSoundAudibleVolume max 1), 1, BloodLust_BleedSoundAudibleDistance] call BloodLust_PlaySound;
                         _target setVariable [format ["BloodLust_NextBleedTime_%1", _selectionName], [_bleedProgress] call BloodLust_GetNextBleedTime];
+                        _target setVariable [format ["BloodLust_NextSmearTime_%1", _selectionName], [_smearProgress] call BloodLust_GetNextSmearTime];
 
                         if(BloodLust_IsArterialBloodSprayEnabled && time <= _arterialBloodSprayEndTime && random 1 <= BloodLust_ArterialBloodSprayProbability) then
                         {

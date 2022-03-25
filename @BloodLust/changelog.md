@@ -4,7 +4,7 @@
 
 - Added blood splatters at the base of characters when they're hit, making hits more bloody (toggleable via `BloodLust_IsUnderCharacterBloodSplatterEnabled`).
 - Added setting to disable BloodLust processing on dead units for optimization (toggleable via `BloodLust_IsBloodLustEnabledForDeadUnits`, disabled by default).
-- Bleeding slows down over time (configurable via `BloodLust_BleedFrequencySlowdownAmount`).
+- Bleeding and smearing slows down over time (configurable via `BloodLust_BleedFrequencySlowdownAmount` and `BloodLust_BleedSmearingFrequencySlowdownAmount`).
 - Swapped out usages of createVehicleLocal to createSimpleObject for spawning objects such as blood splatters when in singleplayer for improved performance.
 - Disabled blood pooling by default due to flickering issue.
 - Tweaked blood smearing angle calculation, reducing instances where blood smears are rotated incorrectly.

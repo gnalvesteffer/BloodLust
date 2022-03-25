@@ -25,6 +25,7 @@ BloodLust_SettingsManager_Properties =
     ["BloodLust_BleedFrequency", "number", "Maximum duration in seconds between each bleed splatter spawn during the bleeding effect. Decrease this value for more frequent bleeding."],
     ["BloodLust_BleedFrequencyVariance", "number", "Maximum variation added to the BleedFrequency. Increasing this value will cause bleeding to have a more varied delay between each splatter."],
     ["BloodLust_BleedFrequencySlowdownAmount", "number", "Increasing interval between blood splatters during bleeding as bleeding progresses. The longer bleeding progresses, the more this slowdown is reached per bleed iteration. Value is in seconds."],
+    ["BloodLust_BleedSmearFrequencySlowdownAmount", "number", "Increasing interval between blood smears during bleeding as bleeding progresses. The longer bleeding progresses, the more this slowdown is reached per bleed iteration. Value is in seconds."],
     ["BloodLust_BleedSplatterJitterAmount", "number", "Scatters the bleed splatter positions. Decrease this value to make bleeding spawn closer to the position the unit was hit."],
     ["BloodLust_BloodSplatterAngleJitterAmount", "number", "Skews the bleed splatter rotation. Angle is in degrees."],
     ["BloodLust_BleedSoundAudibleVolume", "number", "Volume of bleed dripping sound. Increase this value if the bleeding sounds are too quiet."],
