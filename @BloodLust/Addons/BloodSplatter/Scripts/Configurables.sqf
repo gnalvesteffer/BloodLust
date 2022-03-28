@@ -9,6 +9,7 @@ BloodLust_MaxBloodSprays = profileNamespace getVariable ["BloodLust_MaxBloodSpra
 BloodLust_MaxBloodSplatters                    = profileNamespace getVariable ["BloodLust_MaxBloodSplatters", 1500];
 BloodLust_MaxBleedSplatters                    = profileNamespace getVariable ["BloodLust_MaxBleedSplatters", 1500];
 BloodLust_MaxGibs                              = profileNamespace getVariable ["BloodLust_MaxGibs", 30];
+BloodLust_IsSplatteringEnabledForUnitsInVehicles = profileNamespace getVariable ["BloodLust_IsSplatteringEnabledForUnitsInVehicles", false];
 BloodLust_IsBloodLustEnabledForDeadUnits = profileNamespace getVariable ["BloodLust_IsBloodLustEnabledForDeadUnits", true];
 BloodLust_IsFallingVaporizationEnabled = profileNamespace getVariable ["BloodLust_IsFallingVaporizationEnabled", true];
 BloodLust_FallingVaporizationSpeedThreshold = profileNamespace getVariable ["BloodLust_FallingVaporizationSpeedThreshold", 20];
@@ -82,6 +83,34 @@ BloodLust_VaporizationAmmoClassnames           = profileNamespace getVariable ["
     "ShellCore",
     "BombCore"
 ]];
+BloodLust_IsBloodTrailEnabled = profileNamespace getVariable ["BloodLust_IsBloodTrailEnabled", true]; 
+BloodLust_BloodTrailProbability = profileNamespace getVariable ["BloodLust_BloodTrailProbability", 0.75]; 
+BloodLust_BloodTrailSpacing = profileNamespace getVariable ["BloodLust_BloodTrailSpacing", 0.075];
+BloodLust_BloodTrailCancelDistance = profileNamespace getVariable ["BloodLust_BloodTrailCancelDistance", 2];
+BloodLust_BloodTrailDuration = profileNamespace getVariable ["BloodLust_BloodTrailDuration", 3];
+BloodLust_BloodTrailTriggeringSelections = profileNamespace getVariable 
+[
+    "BloodLust_BloodTrailTriggeringSelections",
+    [
+        "head"
+    ]
+];
+BloodLust_BloodTrailTextures = profileNamespace getVariable 
+[
+    "BloodLust_BloodTrailTextures",
+    [
+        "BloodSplatter\Textures\Trail\1.paa",
+        "BloodSplatter\Textures\Trail\2.paa",
+        "BloodSplatter\Textures\Trail\3.paa",
+        "BloodSplatter\Textures\Trail\4.paa",
+        "BloodSplatter\Textures\Trail\5.paa",
+        "BloodSplatter\Textures\Trail\6.paa",
+        "BloodSplatter\Textures\Trail\7.paa",
+        "BloodSplatter\Textures\Trail\8.paa",
+        "BloodSplatter\Textures\Trail\9.paa",
+        "BloodSplatter\Textures\Trail\10.paa"
+    ]
+];
 BloodLust_BloodSplatterIntersectionBlackList   = profileNamespace getVariable ["BloodLust_BloodSplatterIntersectionBlackList",
 [
     "#particlesource",
@@ -1353,19 +1382,3 @@ BloodLust_VaporizationGibClassnames = profileNamespace getVariable ["BloodLust_V
     [16, "BloodSplatter_RightUpperArm", 0, 1],
     [17, "BloodSplatter_RightUpperLeg", 0, 1]
 ]];
-BloodLust_BloodTrailTextures = profileNamespace getVariable 
-[
-    "BloodLust_BloodTrailTextures",
-    [
-        "BloodSplatter\Textures\Trail\1.paa",
-        "BloodSplatter\Textures\Trail\2.paa",
-        "BloodSplatter\Textures\Trail\3.paa",
-        "BloodSplatter\Textures\Trail\4.paa",
-        "BloodSplatter\Textures\Trail\5.paa",
-        "BloodSplatter\Textures\Trail\6.paa",
-        "BloodSplatter\Textures\Trail\7.paa",
-        "BloodSplatter\Textures\Trail\8.paa",
-        "BloodSplatter\Textures\Trail\9.paa",
-        "BloodSplatter\Textures\Trail\10.paa"
-    ]
-];

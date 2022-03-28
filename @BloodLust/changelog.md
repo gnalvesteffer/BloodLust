@@ -1,7 +1,8 @@
 # BloodLust Changelog
 
 ## 2022.03.28
-- Added blood trails.
+- Added blood trails that are triggered by head shots (configurable via `BloodLust_IsBloodTrailEnabled`).
+- Disabled blood splattering and bleeding for units that are inside vehicles (configurable via `BloodLust_IsSplatteringEnabledForUnitsInVehicles`).
 
 ## 2022.03.24
 

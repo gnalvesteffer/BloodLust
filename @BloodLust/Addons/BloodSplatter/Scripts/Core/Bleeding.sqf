@@ -28,6 +28,7 @@ BloodLust_MakeUnitBleed =
     _target setVariable [format ["BloodLust_NextBleedTime_%1", _selectionName], [0] call BloodLust_GetNextBleedTime];
     _target setVariable [format ["BloodLust_NextSmearTime_%1", _selectionName], [0] call BloodLust_GetNextSmearTime];
 
+	// Per Frame Handler
     [
         {
             _args = _this select 0;
@@ -53,6 +54,8 @@ BloodLust_MakeUnitBleed =
                 } foreach BloodLust_OnUnitBleedPostEventHandlers;
                 [_this select 1] call CBA_fnc_removePerFrameHandler;
             };
+
+            if (!BloodLust_IsSplatteringEnabledForUnitsInVehicles && vehicle _target != _target) exitWith {}; // unit is in vehicle
 
             _selectionPosition = _target selectionPosition [_selectionName, "HitPoints"];
             _hitPointPosition = AGLToASL(_target modelToWorld _selectionPosition);

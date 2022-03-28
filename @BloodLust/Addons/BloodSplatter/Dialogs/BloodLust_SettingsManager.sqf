@@ -102,7 +102,14 @@ BloodLust_SettingsManager_Properties =
     ["BloodLust_IsTexturePreloadingEnabled", "bool", "Toggles the preloading of textures. May reduce flickering of animated textures, but will result in a possible blood splatter anomaly at the start of the mission."],
     ["BloodLust_ExplosionGibForceMultiplier", "number", "Controls how much an explosive force affects vaporization gib speeds."],
     ["BloodLust_BloodSprayJitterAmount", "number", "The angle spread of blood sprays from gun shot wounds."],
-    ["BloodLust_IsBloodLustEnabledForDeadUnits", "bool", "Toggles if dead units should have BloodLust effects applied to them."]
+    ["BloodLust_IsBloodLustEnabledForDeadUnits", "bool", "Toggles if dead units should have BloodLust effects applied to them."],
+    ["BloodLust_IsSplatteringEnabledForUnitsInVehicles", "bool", "Toggles if blood splattering and bleeding is enabled for units in vehicles."],
+    ["BloodLust_IsBloodTrailEnabled", "bool", "Toggles if blood trails are enabled."],
+    ["BloodLust_BloodTrailDuration", "number", "Duration in seconds that a blood trail is allowed to form."],
+    ["BloodLust_BloodTrailTriggeringSelections", "parse", "Unit selections/body parts that will trigger a blood trail to form when hit."],
+    ["BloodLust_BloodTrailSpacing", "number", "Distance in meters between trails."],
+    ["BloodLust_BloodTrailProbability", "number", "Probability of a blood trail occurring."],
+    ["BloodLust_BloodTrailCancelDistance", "number", "Optimization: maximum meters between trails that when met, will cancel further trails from being processed for the affected blood trail. This is to prevent really long trails from being processed which can lag the game."]
 ];
 
 BloodLust_SettingsManager_OnLoad =

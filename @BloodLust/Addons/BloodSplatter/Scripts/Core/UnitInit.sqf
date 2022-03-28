@@ -9,7 +9,8 @@ BloodLust_InitUnit =
 
         _unit = (_this select 0) select 0;
 
-        if(!BloodLust_IsBloodLustEnabledForDeadUnits && !alive _unit) exitWith {};
+        if (!BloodLust_IsBloodLustEnabledForDeadUnits && !alive _unit) exitWith {};
+        if (!BloodLust_IsSplatteringEnabledForUnitsInVehicles && vehicle _unit != _unit) exitWith {};
 
         if((position _unit) distance (positionCameraToWorld [0, 0, 0]) <= BloodLust_BloodLustActivationDistance) then
         {
@@ -227,6 +228,17 @@ BloodLust_OnUnitHitPart =
                 selectRandom _splatterTextures,
                 call BloodLust_CreateMediumBloodSplatterObject
             ] call BloodLust_CreateBloodSplatter;
+        };
+
+        // Blood Trail creation on death.
+        if (BloodLust_IsBloodTrailEnabled && random 1 <= BloodLust_BloodTrailProbability) then
+        {
+            {
+                if (BloodLust_BloodTrailTriggeringSelections find _x != -1) exitWith
+                {
+                    [_target, _x, BloodLust_BloodTrailDuration] call BloodLust_StartBloodTrail;
+                }
+            } forEach _selections;
         };
 
         for "_i" from 1 to _bloodSplatterIterations do

@@ -164,3 +164,10 @@ BloodLust_PlaySound =
         playSound3D [_soundPath, _object, _isInside, _position, _volume, _pitch, _distance];
     };
 };
+
+BloodLust_GetSelectionWorldPositionASL =
+{
+    params ["_unit", "_selection"];
+    _selectionModelPosition = _unit selectionPosition _selection;
+    AGLToASL (_unit modelToWorld _selectionModelPosition);
+}
