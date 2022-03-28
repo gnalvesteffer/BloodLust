@@ -110,7 +110,7 @@ BloodLust_SettingsManager_OnLoad =
     setAccTime 0;
     (findDisplay 49) closeDisplay 1;
     ctrlSetText [1001, format ["BloodLust v%1 Settings | Press Escape to exit.", getNumber (configFile >> "CfgPatches" >> "BloodSplatter" >> "version")]];
-    ((findDisplay 76542) displayCtrl 1650) ctrlSetStructuredText parseText "<a href='https://steamcommunity.com/sharedfiles/filedetails/?id=667953829'>Steam Workshop</a>";
+    ((findDisplay 76542) displayCtrl 1650) ctrlSetStructuredText parseText "<a href='https://www.nexusmods.com/arma3/mods/31'>Nexus Mods</a>";
     _properties = [BloodLust_SettingsManager_Properties, [], {_x select 0}, "ASCEND"] call BIS_fnc_sortBy;
     {
         lbAdd [1500, _x select 0];

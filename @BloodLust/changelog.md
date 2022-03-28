@@ -1,6 +1,9 @@
 # BloodLust Changelog
 
-## 2022.03.24:
+## 2022.03.28
+- Added blood trails.
+
+## 2022.03.24
 
 - Added blood splatters at the base of characters when they're hit, making hits more bloody (toggleable via `BloodLust_IsUnderCharacterBloodSplatterEnabled`).
 - Added setting to disable BloodLust processing on dead units for optimization (toggleable via `BloodLust_IsBloodLustEnabledForDeadUnits`, disabled by default).

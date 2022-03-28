@@ -19,7 +19,7 @@ BloodLust_CleanUpDelay = profileNamespace getVariable ["BloodLust_CleanUpDelay",
 BloodLust_BloodSplatterProbability = profileNamespace getVariable ["BloodLust_BloodSplatterProbability", 1.0];
 BloodLust_BloodSplatterIterationCaliberMultiplier = profileNamespace getVariable ["BloodLust_BloodSplatterIterationCaliberMultiplier", 0.3];
 BloodLust_BloodSplatterIterations              = profileNamespace getVariable ["BloodLust_BloodSplatterIterations", 1];
-BloodLust_VaporizedBloodSplatterIterations     = profileNamespace getVariable ["BloodLust_VaporizedBloodSplatterIterations", 0];
+BloodLust_VaporizedBloodSplatterIterations     = profileNamespace getVariable ["BloodLust_VaporizedBloodSplatterIterations", 10];
 BloodLust_VaporizedBloodSplatterJitterAmount   = profileNamespace getVariable ["BloodLust_VaporizedBloodSplatterJitterAmount", 10];
 BloodLust_VaporizationDamageThreshold          = profileNamespace getVariable ["BloodLust_VaporizationDamageThreshold", 1];
 BloodLust_IsVaporizationEnabled                = profileNamespace getVariable ["BloodLust_IsVaporizationEnabled", true];
@@ -1353,3 +1353,19 @@ BloodLust_VaporizationGibClassnames = profileNamespace getVariable ["BloodLust_V
     [16, "BloodSplatter_RightUpperArm", 0, 1],
     [17, "BloodSplatter_RightUpperLeg", 0, 1]
 ]];
+BloodLust_BloodTrailTextures = profileNamespace getVariable 
+[
+    "BloodLust_BloodTrailTextures",
+    [
+        "BloodSplatter\Textures\Trail\1.paa",
+        "BloodSplatter\Textures\Trail\2.paa",
+        "BloodSplatter\Textures\Trail\3.paa",
+        "BloodSplatter\Textures\Trail\4.paa",
+        "BloodSplatter\Textures\Trail\5.paa",
+        "BloodSplatter\Textures\Trail\6.paa",
+        "BloodSplatter\Textures\Trail\7.paa",
+        "BloodSplatter\Textures\Trail\8.paa",
+        "BloodSplatter\Textures\Trail\9.paa",
+        "BloodSplatter\Textures\Trail\10.paa"
+    ]
+];

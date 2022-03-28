@@ -11,8 +11,8 @@ class CfgPatches
         requiredVersion = 1.0;
         projectName = "BloodLust";
         author = "Gavin N. Alvesteffer";
-        url = "http://steamcommunity.com/sharedfiles/filedetails/?id=667953829";
-        version = "2022.03.24";
+        url = "https://www.nexusmods.com/arma3/mods/31";
+        version = "2022.03.28";
       };
     };
 

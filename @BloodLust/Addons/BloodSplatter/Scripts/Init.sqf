@@ -7,7 +7,7 @@ BloodLust_IsInitialized = false;
 call compile preprocessFileLineNumbers "BloodSplatter\Scripts\Configurables.sqf";
 call compile preprocessFileLineNumbers "BloodSplatter\Scripts\Helpers.sqf";
 call compile preprocessFileLineNumbers "BloodSplatter\Scripts\EventHooks.sqf";
-call compile preprocessFileLineNumbers "BloodSplatter\Scripts\Core.sqf";
+call compile preprocessFileLineNumbers "BloodSplatter\Scripts\Core\Init.sqf";
 if(isMultiplayer || BloodLust_IsMultiplayerCoreEnabledInSingleplayer) then
 {
     call compile preprocessFileLineNumbers "BloodSplatter\Scripts\CoreMultiplayer.sqf";
