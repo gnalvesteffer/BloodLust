@@ -21,6 +21,7 @@ BloodLust_SettingsManager_Properties =
     ["BloodLust_BloodSplatterJitterAmount", "number", "Scatters the position of blood splatters. Decrease this value for splatters to spawn closer to the path of the projectile."],
     ["BloodLust_BloodLustActivationDistance", "number", "Maximum distance that units are processed by BloodLust. Decrease this value for improved performance."],
     ["BloodLust_IsBleedingEnabled", "bool", "Toggles the bleeding effect. Set to false to disable bleeding, which may improve performance."],
+    ["BloodLust_IsBleedingTiedToUnitState", "bool", "Toggles if the bleeding effect is tied to the unit's bleeding state instead of adhering to a fixed duration."],
     ["BloodLust_BleedDuration", "number", "Amount of time in seconds that the bleeding effect lasts from a single hit."],
     ["BloodLust_BleedFrequency", "number", "Maximum duration in seconds between each bleed splatter spawn during the bleeding effect. Decrease this value for more frequent bleeding."],
     ["BloodLust_BleedFrequencyVariance", "number", "Maximum variation added to the BleedFrequency. Increasing this value will cause bleeding to have a more varied delay between each splatter."],

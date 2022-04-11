@@ -46,8 +46,12 @@ BloodLust_MakeUnitBleed =
             _splatterAngle = random 360;
             _bleedProgress = 1 - ((_endTime - time) / _endTime);
             _smearProgress = 1 - ((_bleedSmearEndTime - time) / _bleedSmearEndTime);
+            _isBleedingFinished = 
+                (BloodLust_IsBleedingTiedToUnitState && !isBleeding _target) || 
+                (!BloodLust_IsBleedingTiedToUnitState && (time >= _endTime || (damage _target < _initialUnitDamage))) ||
+                (_target getVariable ["BloodLust_IsVaporized", false]);
 
-            if((time >= _endTime) || (_target getVariable ["BloodLust_IsVaporized", false]) || ((damage _target) < _initialUnitDamage)) exitWith
+            if(_isBleedingFinished) exitWith
             {
                 {
                     [_target] call _x;

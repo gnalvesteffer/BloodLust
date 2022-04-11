@@ -32,6 +32,7 @@ BloodLust_BloodSplatterJitterAmount            = profileNamespace getVariable ["
 BloodLust_BloodSplatterAngleJitterAmount = profileNamespace getVariable ["BloodLust_BloodSplatterAngleJitterAmount", 360];
 BloodLust_BloodLustActivationDistance          = profileNamespace getVariable ["BloodLust_BloodLustActivationDistance", 300];
 BloodLust_IsBleedingEnabled                    = profileNamespace getVariable ["BloodLust_IsBleedingEnabled", true];
+BloodLust_IsBleedingTiedToUnitState = profileNamespace getVariable ["BloodLust_IsBleedingEnabled", false];
 BloodLust_ExplosionDamageThreshold = profileNamespace getVariable ["BloodLust_ExplosionDamageThreshold", 0.2];
 BloodLust_ExplosionBloodSplatterIterationMultiplier =  profileNamespace getVariable ["BloodLust_ExplosionBloodSplatterIterationMultiplier", 30];
 BloodLust_ExplosionGibForceMultiplier =  profileNamespace getVariable ["BloodLust_ExplosionGibForceMultiplier", 0.3];

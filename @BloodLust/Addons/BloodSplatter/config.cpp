@@ -12,7 +12,7 @@ class CfgPatches
         projectName = "BloodLust";
         author = "Gavin N. Alvesteffer";
         url = "https://www.nexusmods.com/arma3/mods/31";
-        version = "2022.03.28";
+        version = "2022.04.10";
       };
     };
 

@@ -1,13 +1,13 @@
 name = "BloodLust";
 picture = "mod.paa";
-actionName = "Steam Workshop Page";
-action = "http://steamcommunity.com/sharedfiles/filedetails/?id=667953829";
-description = "Adds more gore to the game.";
+actionName = "NexusMods Page";
+action = "https://www.nexusmods.com/arma3/mods/31";
+description = "Adds detailed blood and gore effects.";
 logo = "mod.paa";
 logoOver = "mod.paa";
 tooltip = "BloodLust";
 tooltipOwned = "";
-overview = "Adds more gore to the game.";
+overview = "Adds detailed blood and gore effects.";
 author = "Gavin N. Alvesteffer";
 overviewPicture = "mod.paa";
 overviewText = "";

@@ -1,5 +1,9 @@
 # BloodLust Changelog
 
+## 2022.04.10
+- Added option to make bleeding tied to the actual unit's bleeding state, instead of being time-based (configurable via `BloodLust_IsBleedingTiedToUnitState`, disabled by default).
+- Ported settings system to CBA Addons Settings sytem.
+
 ## 2022.03.28
 - Added blood trails that are triggered by head shots (configurable via `BloodLust_IsBloodTrailEnabled`).
 - Disabled blood splattering and bleeding for units that are inside vehicles (configurable via `BloodLust_IsSplatteringEnabledForUnitsInVehicles`).
