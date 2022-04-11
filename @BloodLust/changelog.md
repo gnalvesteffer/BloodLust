@@ -2,6 +2,7 @@
 
 ## 2022.04.10
 - Added option to make bleeding tied to the actual unit's bleeding state, instead of being time-based (configurable via `BloodLust_IsBleedingTiedToUnitState`, disabled by default).
+- Added bleeding pressure, which makes bleeding shoot out farther initially and gradually lowers in pressure (configurable via `BloodLust_BleedHighPressureDuration` and `BloodLust_BleedHighPressureMaxDistance`).
 - Ported settings system to CBA Addons Settings sytem.
 
 ## 2022.03.28

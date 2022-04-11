@@ -1,7 +1,5 @@
 BloodLust_CreateBloodPoolObject =
 {
-    if(!BloodLust_IsBloodPoolingEnabled) exitWith {};
-
     if(call BloodLust_IsMaxBloodSplattersReached) then
     {
         call BloodLust_RemoveOldBloodSplatter;
