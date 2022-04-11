@@ -25,7 +25,6 @@ BloodLust_MakeUnitBleed =
     _arterialBloodSprayEndTime = time + BloodLust_ArterialBloodSprayDuration;
     _initialUnitDamage = damage _target;
     _bleedSmearEndTime = time + BloodLust_BleedSmearDuration;
-    _highPressureEndTime = time + BloodLust_BleedHighPressureDuration;
     _target setVariable [format ["BloodLust_NextBleedTime_%1", _selectionName], [0] call BloodLust_GetNextBleedTime];
     _target setVariable [format ["BloodLust_NextSmearTime_%1", _selectionName], [0] call BloodLust_GetNextSmearTime];
 
@@ -41,8 +40,7 @@ BloodLust_MakeUnitBleed =
             _bulletVectorUp,
             _endTime,
             _arterialBloodSprayEndTime,
-            _bleedSmearEndTime,
-            _highPressureEndTime
+            _bleedSmearEndTime
         ]
     ] call CBA_fnc_addPerFrameHandler;
 };
@@ -59,7 +57,6 @@ BloodLust_BleedingFrameHandler =
     _endTime = _args select 6;
     _arterialBloodSprayEndTime = _args select 7;
     _bleedSmearEndTime = _args select 8;
-    _highPressureEndTime = _args select 9;
     _nextBleedTime = _target getVariable [format ["BloodLust_NextBleedTime_%1", _selectionName], 0];
     _nextSmearTime = _target getVariable [format ["BloodLust_NextSmearTime_%1", _selectionName], 0];
     _splatterAngle = random 360;
@@ -170,15 +167,12 @@ BloodLust_BleedingFrameHandler =
     {
         if (time >= _nextBleedTime) then
         {
-            _highPressureAmount = ((_highPressureEndTime - time) / _highPressureEndTime) max 0;
-            _highPressureJitter = _projectileDirection vectorMultiply -(BloodLust_BleedHighPressureMaxDistance * _highPressureAmount);
             _jitter =
             [
                 BloodLust_BleedSplatterJitterAmount - (random (BloodLust_BleedSplatterJitterAmount * 2)),
                 BloodLust_BleedSplatterJitterAmount - (random (BloodLust_BleedSplatterJitterAmount * 2)),
                 BloodLust_BleedSplatterJitterAmount - (random (BloodLust_BleedSplatterJitterAmount * 2))
-            ] vectorAdd _highPressureJitter;
-
+            ];
             _splatterPosition    = (AGLtoASL(_target modelToWorldVisual (_target selectionPosition [_selectionName, "HitPoints"]))) vectorAdd _jitter;
             _surfaceIntersection = [_splatterPosition, _target, vehicle _target] call BloodLust_GetSurfaceIntersection;
             _surfaceDistance     = _surfaceIntersection select 0;
