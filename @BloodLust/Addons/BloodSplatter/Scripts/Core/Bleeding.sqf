@@ -289,7 +289,7 @@ BloodLust_GetNextSmearTime =
     (
         time +
         (BloodLust_BleedFrequency + (random BloodLust_BleedFrequencyVariance)) +
-        (_bleedProgress * BloodLust_BleedSmearFrequencySlowdownAmount)
+        (_smearProgress * BloodLust_BleedSmearFrequencySlowdownAmount)
     );
 };
 
