@@ -4,7 +4,7 @@
 BloodLust_IsInitialized = false;
 
 //Core.
-call compile preprocessFileLineNumbers "BloodSplatter\Scripts\Configurables.sqf";
+call compile preprocessFileLineNumbers "BloodSplatter\Scripts\Configuration.sqf";
 call compile preprocessFileLineNumbers "BloodSplatter\Scripts\CBASettings.sqf";
 call compile preprocessFileLineNumbers "BloodSplatter\Scripts\Helpers.sqf";
 call compile preprocessFileLineNumbers "BloodSplatter\Scripts\EventHooks.sqf";
