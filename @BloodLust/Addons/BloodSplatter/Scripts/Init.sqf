@@ -3,24 +3,25 @@
 
 BloodLust_IsInitialized = false;
 
-//Core.
+// Core.
 call compile preprocessFileLineNumbers "BloodSplatter\Scripts\Configuration.sqf";
 call compile preprocessFileLineNumbers "BloodSplatter\Scripts\CBASettings.sqf";
 call compile preprocessFileLineNumbers "BloodSplatter\Scripts\Helpers.sqf";
 call compile preprocessFileLineNumbers "BloodSplatter\Scripts\EventHooks.sqf";
 call compile preprocessFileLineNumbers "BloodSplatter\Scripts\Core\Init.sqf";
+
+// Multiplayer.
 if(isMultiplayer || BloodLust_IsMultiplayerCoreEnabledInSingleplayer) then
 {
-    call compile preprocessFileLineNumbers "BloodSplatter\Scripts\CoreMultiplayer.sqf";
-    call compile preprocessFileLineNumbers "BloodSplatter\Scripts\ConfigurablesMultiplayer.sqf"; //Server can override client settings in this script.
+    call compile preprocessFileLineNumbers "BloodSplatter\Scripts\MultiplayerCompatibility.sqf";
 };
 
-//Effects.
+// Effects.
 call compile preprocessFileLineNumbers "BloodSplatter\Scripts\Effects\GoreMist.sqf";
 call compile preprocessFileLineNumbers "BloodSplatter\Scripts\Effects\Refraction.sqf";
 
 // Cleanup.
 call compile preprocessFileLineNumbers "BloodSplatter\Scripts\Cleanup.sqf";
 
-//A flag that BloodLust is ready for others to add their event handlers and stuff.
+// Indicate that BloodLust is ready for other mods/missions/etc to handle any special BloodLust handling.
 BloodLust_IsInitialized = true;

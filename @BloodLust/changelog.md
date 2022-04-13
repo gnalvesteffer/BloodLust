@@ -4,6 +4,7 @@
 - Added option to make bleeding tied to the actual unit's bleeding state, instead of being time-based (configurable via `BloodLust_IsBleedingTiedToUnitState`, disabled by default).
 - Ported settings system to CBA Addons Settings sytem.
 - Removed outdated/unused settings and systems.
+- Revamped multiplayer compatibility, making it behave closer to BloodLust's singleplayer capabilities, thanks to the CBA Settings System.
 
 ## 2022.03.28
 - Added blood trails that are triggered by head shots (configurable via `BloodLust_IsBloodTrailEnabled`).
