@@ -3,7 +3,6 @@
 
 BloodLust_IsBloodLustEnabled = profileNamespace getVariable ["BloodLust_IsBloodLustEnabled", true];
 BloodLust_IsMultiplayerCoreEnabledInSingleplayer = profileNamespace getVariable ["BloodLust_IsMultiplayerCoreEnabledInSingleplayer", false];
-BloodLust_IsTexturePreloadingEnabled = profileNamespace getVariable ["BloodLust_IsMultiplayerCoreEnabledInSingleplayer", false];
 BloodLust_MaxArterialBloodSprays = profileNamespace getVariable ["BloodLust_MaxArterialBloodSprays", 20];
 BloodLust_MaxBloodSprays = profileNamespace getVariable ["BloodLust_MaxBloodSprays", 20];
 BloodLust_MaxBloodSplatters                    = profileNamespace getVariable ["BloodLust_MaxBloodSplatters", 1500];
@@ -64,13 +63,7 @@ BloodLust_IsUnitVehicleCollisionEffectsEnabled = profileNamespace getVariable ["
 BloodLust_UnitVehicleVaporizationCollisionSpeed = profileNamespace getVariable ["BloodLust_UnitVehicleVaporizationCollisionSpeed", 30];
 BloodLust_UnitVehicleVaporizationProbability = profileNamespace getVariable ["BloodLust_UnitVehicleVaporizationProbability", 0.25];
 BloodLust_UnitVehicleCollisionBleedDuration = profileNamespace getVariable ["BloodLust_UnitVehicleCollisionBleedDuration", 3];
-BloodLust_IsGibbingEnabled                     = profileNamespace getVariable ["BloodLust_IsGibbingEnabled", true];
 BloodLust_GibBleedDuration =  profileNamespace getVariable ["BloodLust_GibBleedDuration", 3];
-BloodLust_GibCaliberThreshold = profileNamespace getVariable ["BloodLust_GibCaliberThreshold", 0.4];
-BloodLust_GibIterations                        = profileNamespace getVariable ["BloodLust_GibIterations", 3];
-BloodLust_GibSpeed                             = profileNamespace getVariable ["BloodLust_GibSpeed", 1.75];
-BloodLust_GibProbability                       = profileNamespace getVariable ["BloodLust_GibProbability", 0.15];
-BloodLust_GibbingProjectileSpeedThreshold      = profileNamespace getVariable ["BloodLust_GibbingProjectileSpeedThreshold", 300];
 BloodLust_IsVehicleCrewVaporizationEnabled = profileNamespace getVariable ["BloodLust_IsVehicleCrewVaporizationEnabled", true];
 BloodLust_IsVaporizedGibCamSwitchEnabled = profileNamespace getVariable ["BloodLust_IsVaporizedGibCamSwitchEnabled", false];
 BloodLust_IsVaporizedHeatWaveEnabled = profileNamespace getVariable ["BloodLust_IsVaporizedHeatWaveEnabled", true];
@@ -118,8 +111,6 @@ BloodLust_BloodSplatterIntersectionBlackList   = profileNamespace getVariable ["
     "dummyweapon.p3d",
     "BloodSplatter_Plane",
     "BloodSplatter_SprayPlane",
-    "BloodSplatter_MeatChunk_1",
-    "BloodSplatter_Brain",
     "WeaponHolderSimulated",
     "WeaponHolder",
     "Thing",
@@ -154,14 +145,6 @@ BloodLust_BloodSpraySounds = profileNamespace getVariable ["BloodLust_BloodSpray
     "BloodSplatter\Audio\bloodspray_4.ogg",
     "BloodSplatter\Audio\bloodspray_5.ogg",
     "BloodSplatter\Audio\bloodspray_6.ogg"
-]];
-BloodLust_BloodSplatterSounds = profileNamespace getVariable ["BloodLust_BloodSplatterSounds",
-[
-
-]];
-BloodLust_HitSounds = profileNamespace getVariable ["BloodLust_HitSounds",
-[
-
 ]];
 BloodLust_HeadSplatterTextures = profileNamespace getVariable ["BloodLust_HeadSplatterTextures", //"head"
 [
@@ -1333,34 +1316,6 @@ BloodLust_BleedSounds = profileNamespace getVariable ["BloodLust_BleedSounds",
     "BloodSplatter\Audio\blooddrip_1.ogg",
     "BloodSplatter\Audio\blooddrip_2.ogg",
     "BloodSplatter\Audio\blooddrip_3.ogg"
-]];
-BloodLust_HeadGibClassnames = profileNamespace getVariable ["BloodLust_HeadGibClassnames",
-[
-
-]];
-BloodLust_Spine1GibClassnames = profileNamespace getVariable ["BloodLust_Spine1GibClassnames",
-[
-
-]];
-BloodLust_Spine2GibClassnames = profileNamespace getVariable ["BloodLust_Spine2GibClassnames",
-[
-
-]];
-BloodLust_Spine3GibClassnames = profileNamespace getVariable ["BloodLust_Spine3GibClassnames",
-[
-
-]];
-BloodLust_BodyGibClassnames = profileNamespace getVariable ["BloodLust_BodyGibClassnames",
-[
-
-]];
-BloodLust_ArmGibClassnames = profileNamespace getVariable ["BloodLust_ArmGibClassnames",
-[
-
-]];
-BloodLust_LegGibClassnames = profileNamespace getVariable ["BloodLust_LegGibClassnames",
-[
-
 ]];
 BloodLust_VaporizationGibClassnames = profileNamespace getVariable ["BloodLust_VaporizationGibClassnames", //[gib set index for algorithmic purposes, classname, initial gib count this collection is copied by BloodLust_VaporizeUnit for simplicity, max emmisions of this gib per vaporization]
 [

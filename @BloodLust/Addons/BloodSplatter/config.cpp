@@ -337,29 +337,3 @@ class CfgVehicles
         weight = 50;
     };
 };
-
-class RscXSliderH;
-class RscTitle;
-class RscControlsGroup;
-class RscButtonMenuCancel;
-class RscButtonMenuOK;
-class RscButtonMenu;
-class RscTextCheckBox;
-class RscCheckBox;
-class IGUIBack;
-class RscSlider;
-class RscFrame;
-class RscShortcutButtonMain;
-class RscShortcutButton;
-class RscButton;
-class RscListBox;
-class RscCombo;
-class RscEdit;
-class RscPicture;
-class RscStructuredText;
-class RscText;
-class RscHTML;
-class VScrollbar;
-class HScrollbar;
-#include "Dialogs\BloodLust_SettingsManager.h"
-#include "Dialogs\BloodLust_InterruptMenu.h"

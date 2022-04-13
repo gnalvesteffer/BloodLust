@@ -255,14 +255,6 @@ BloodLust_OnUnitHitPart =
         };
     };
 
-    if(BloodLust_IsGibbingEnabled && _ammoCaliber >= BloodLust_GibCaliberThreshold && _bullet call BloodLust_GetVelocityMagnitude >= BloodLust_GibbingProjectileSpeedThreshold && ((random 1) <= BloodLust_GibProbability)) then
-    {
-        for "_i" from 0 to ((floor(random(BloodLust_GibIterations))) max 1) do
-        {
-            [BloodLust_BloodSplatterJitterAmount, _hitSelection] call BloodLust_CreateGib;
-        };
-    };
-
     if(BloodLust_IsBleedingEnabled && alive _unit) then
     {
        {
