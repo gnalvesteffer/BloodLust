@@ -19,8 +19,8 @@ if(isMultiplayer || BloodLust_IsMultiplayerCoreEnabledInSingleplayer) then
 call compile preprocessFileLineNumbers "BloodSplatter\Scripts\Effects\GoreMist.sqf";
 call compile preprocessFileLineNumbers "BloodSplatter\Scripts\Effects\Refraction.sqf";
 
-//BloodLust Clean-up.
-execVM "BloodSplatter\Scripts\Cleanup.sqf";
+// Cleanup.
+call compile preprocessFileLineNumbers "BloodSplatter\Scripts\Cleanup.sqf";
 
 //A flag that BloodLust is ready for others to add their event handlers and stuff.
 BloodLust_IsInitialized = true;

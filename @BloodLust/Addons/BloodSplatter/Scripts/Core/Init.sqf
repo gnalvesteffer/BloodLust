@@ -7,4 +7,3 @@ call compile preprocessFileLineNumbers "BloodSplatter\Scripts\Core\Gibbing.sqf";
 call compile preprocessFileLineNumbers "BloodSplatter\Scripts\Core\Vaporization.sqf";
 call compile preprocessFileLineNumbers "BloodSplatter\Scripts\Core\UnitInit.sqf";
 call compile preprocessFileLineNumbers "BloodSplatter\Scripts\Core\VehicleInit.sqf";
-call compile preprocessFileLineNumbers "BloodSplatter\Scripts\Core\Cleanup.sqf";
