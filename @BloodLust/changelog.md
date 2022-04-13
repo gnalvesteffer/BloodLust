@@ -11,7 +11,6 @@
 - Disabled blood splattering and bleeding for units that are inside vehicles (configurable via `BloodLust_IsSplatteringEnabledForUnitsInVehicles`).
 
 ## 2022.03.24
-
 - Added blood splatters at the base of characters when they're hit, making hits more bloody (toggleable via `BloodLust_IsUnderCharacterBloodSplatterEnabled`).
 - Added setting to disable BloodLust processing on dead units for optimization (toggleable via `BloodLust_IsBloodLustEnabledForDeadUnits`, disabled by default).
 - Bleeding and smearing slows down over time (configurable via `BloodLust_BleedFrequencySlowdownAmount` and `BloodLust_BleedSmearingFrequencySlowdownAmount`).
