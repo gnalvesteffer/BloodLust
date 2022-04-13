@@ -49,38 +49,41 @@ BloodLust_VaporizeUnit =
     };
 
     _gibs = [];
-    for "_i" from 1 to BloodLust_VaporizationGibIterations do
+    if (BloodLust_MaxGibs > 0) then
     {
-        _gibClassname = call _GetRandomGib;
-        if(isNil "_gibClassname") exitWith {};
-
-        _jitter =
-        [
-            BloodLust_VaporizedBloodSplatterJitterAmount - (random (BloodLust_VaporizedBloodSplatterJitterAmount * 2)),
-            BloodLust_VaporizedBloodSplatterJitterAmount - (random (BloodLust_VaporizedBloodSplatterJitterAmount * 2)),
-            BloodLust_VaporizedBloodSplatterJitterAmount - (random (BloodLust_VaporizedBloodSplatterJitterAmount * 2))
-        ];
-        _gib = _gibClassname call BloodLust_CreateGibObject;
-        _gibs pushBack _gib;
-        _gib setVariable ["BloodLust_SourceUnit", _unit];
-        _gib setDir (random 360);
-        _gib setPosASL (getPosASL _unit);
-        _gib setVelocity (_jitter vectorMultiply _gibForce);
-        [_gib, BloodLust_GibBleedDuration, 0.1] call BloodLust_AttachSmearBleeding;
-
-        if(_unit == player && BloodLust_IsVaporizedGibCamSwitchEnabled) then
+        for "_i" from 1 to BloodLust_VaporizationGibIterations do
         {
-            (selectRandom _gibs) switchCamera "External";
+            _gibClassname = call _GetRandomGib;
+            if(isNil "_gibClassname") exitWith {};
+
+            _jitter =
+            [
+                BloodLust_VaporizedBloodSplatterJitterAmount - (random (BloodLust_VaporizedBloodSplatterJitterAmount * 2)),
+                BloodLust_VaporizedBloodSplatterJitterAmount - (random (BloodLust_VaporizedBloodSplatterJitterAmount * 2)),
+                BloodLust_VaporizedBloodSplatterJitterAmount - (random (BloodLust_VaporizedBloodSplatterJitterAmount * 2))
+            ];
+            _gib = _gibClassname call BloodLust_CreateGibObject;
+            _gibs pushBack _gib;
+            _gib setVariable ["BloodLust_SourceUnit", _unit];
+            _gib setDir (random 360);
+            _gib setPosASL (getPosASL _unit);
+            _gib setVelocity (_jitter vectorMultiply _gibForce);
+            [_gib, BloodLust_GibBleedDuration, 0.1] call BloodLust_AttachSmearBleeding;
+
+            if(_unit == player && BloodLust_IsVaporizedGibCamSwitchEnabled) then
+            {
+                (selectRandom _gibs) switchCamera "External";
+            };
+
+            if(BloodLust_IsVaporizedHeatWaveEnabled) then
+            {
+                [_gib, 30] call BloodLust_RefractionEffect;
+            };
+
+            {
+                [_gib] call _x;
+            } foreach BloodLust_OnGibCreatedEventHandlers;
         };
-
-        if(BloodLust_IsVaporizedHeatWaveEnabled) then
-        {
-            [_gib, 30] call BloodLust_RefractionEffect;
-        };
-
-        {
-            [_gib] call _x;
-        } foreach BloodLust_OnGibCreatedEventHandlers;
     };
 
     _bloodSplatters = [];

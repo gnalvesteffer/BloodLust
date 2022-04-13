@@ -174,6 +174,8 @@ BloodLust_OnUnitHitPart =
         _return;
     };
 
+    if (count _hitSelectionsFiltered == 0) exitWith {};
+
     _hitSelection = _hitSelectionsFiltered select 0;
     _target       = _hitSelection select 0;
     _shooter      = _hitSelection select 1;
