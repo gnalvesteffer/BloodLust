@@ -143,6 +143,8 @@ BloodLust_CreateBloodSplatter =
     {
         [_splatter] call _x;
     } foreach BloodLust_OnBloodSplatterCreatedEventHandlers;
+
+    _splatter;
 };
 
 BloodLust_CreateBloodSplatterObject =
