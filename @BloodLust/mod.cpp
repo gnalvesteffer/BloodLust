@@ -1,7 +1,7 @@
 name = "BloodLust";
 picture = "mod.paa";
 actionName = "NexusMods Page";
-action = "https://www.nexusmods.com/arma3/mods/31";
+action = "https://steamcommunity.com/sharedfiles/filedetails/?id=667953829";
 description = "Adds detailed blood and gore effects.";
 logo = "mod.paa";
 logoOver = "mod.paa";

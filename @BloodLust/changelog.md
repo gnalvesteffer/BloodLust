@@ -1,6 +1,6 @@
 # BloodLust Changelog
 
-## 2022.04.10
+## 2022.04.13
 - Added option to make bleeding tied to the actual unit's bleeding state, instead of being time-based (configurable via `BloodLust_IsBleedingTiedToUnitState`, disabled by default).
 - Ported settings system to CBA Addons Settings sytem.
 - Removed outdated/unused settings and systems.
