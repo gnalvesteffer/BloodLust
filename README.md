@@ -2,4 +2,4 @@
 That ArmA3 mod that adds all that gore.
 
 ## Download
-[Download the mod from Nexus Mods](https://www.nexusmods.com/arma3/mods/31)
+[Subscribe to the mod from the Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=667953829)
